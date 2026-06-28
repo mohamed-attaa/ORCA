@@ -209,6 +209,7 @@
     .slide.active { opacity: 1; transform: scale(1); }
     .slide-1 { background: linear-gradient(135deg, rgba(10, 10, 16, 0.6), rgba(0, 0, 0, 0.3), rgba(10, 10, 16, 0.7)), url('./IMG/all-clubs-03.jpeg') center/cover; }
     .slide-2 { background: linear-gradient(135deg, rgba(10, 10, 16, 0.6), rgba(0, 0, 0, 0.3), rgba(10, 10, 16, 0.7)), url('./IMG/shared-logo-gold.jpeg') center/cover; }
+    .slide-3 { background: linear-gradient(135deg, rgba(10, 10, 16, 0.6), rgba(0, 0, 0, 0.3), rgba(10, 10, 16, 0.7)), url('./IMG/images\ \(5\).jfif') center/cover; }
     .slide::after {
       content: '';
       position: absolute;
@@ -597,8 +598,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* 🔥 تكبير الحروف هنا 🔥 */
-      font-size: 0.65rem; /* كانت 0.45rem */
+      font-size: 0.65rem;
       font-family: var(--ff-ui);
       font-weight: 700;
       color: rgba(255,255,255,0.8);
@@ -733,11 +733,13 @@
     .table-preview .close-btn:hover { color: var(--cream); }
     .table-preview .preview-image {
       width: 100%;
-      height: 200px;
+      height: 280px;
       object-fit: cover;
       border-radius: var(--r);
       margin-bottom: 16px;
       border: 1px solid var(--border);
+      background: var(--dark);
+      image-rendering: auto;
     }
     .table-preview .preview-title {
       font-family: var(--ff-display);
@@ -1136,9 +1138,9 @@
       .about-stats { grid-template-columns: 1fr; }
       .hero-title { font-size: 2.2rem; }
       .map-grid { gap: 4px; }
-      /* تكبير الحروف في الموبايل */
       .map-table { font-size: 0.55rem; min-height: 24px; }
       .table-preview { padding: 24px; }
+      .table-preview .preview-image { height: 200px; }
       .venue-image-container .image-overlay h3 { font-size: 1.3rem; }
       .venue-image-container .image-overlay p { font-size: 0.7rem; }
     }
@@ -1146,11 +1148,10 @@
       .hero-title { font-size: 1.8rem; }
       .section-title { font-size: 1.6rem; }
       .map-grid { gap: 3px; }
-      /* تكبير الحروف في الشاشات الصغيرة جداً */
       .map-table { font-size: 0.5rem; min-height: 20px; border-radius: 3px; }
       .map-visual { padding: 16px; }
       .table-preview { padding: 16px; }
-      .table-preview .preview-image { height: 140px; }
+      .table-preview .preview-image { height: 160px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal-left, .reveal-right, .reveal-scale { transition: none; opacity: 1; transform: none; }
@@ -1349,7 +1350,7 @@
 <div class="table-preview-overlay" id="previewOverlay"></div>
 <div class="table-preview" id="tablePreview">
   <button class="close-btn" onclick="closePreview()">✕</button>
-  <img class="preview-image" id="previewImage" src="" alt="Table" />
+  <img class="preview-image" id="previewImage" src="" alt="Table" onerror="this.src='IMG/photo_vip.png';" />
   <div class="preview-title" id="previewTitle">Table Name</div>
   <div class="preview-desc" id="previewDesc">Table description</div>
   <div class="preview-specs" id="previewSpecs">
@@ -1386,7 +1387,20 @@
       <span class="video-label">🎬 Cosmo Beats</span>
     </div>
     <!-- كارد 4: صورة -->
-   
+    <div class="gallery-item g4 reveal-scale reveal-delay-1">
+      <div class="image-bg"></div>
+      <span class="video-label" style="bottom:12px; left:16px;">🪑 VIP Seating</span>
+    </div>
+    <!-- كارد 5: صورة -->
+    <div class="gallery-item g5 reveal-scale reveal-delay-2">
+      <div class="image-bg"></div>
+      <span class="video-label" style="bottom:12px; left:16px;">🌙 Night Views</span>
+    </div>
+    <!-- كارد 6: صورة -->
+    <div class="gallery-item g6 reveal-scale reveal-delay-3">
+      <div class="image-bg"></div>
+      <span class="video-label" style="bottom:12px; left:16px;">✨ Private Events</span>
+    </div>
   </div>
 </section>
 
@@ -1505,7 +1519,7 @@
       desc: 'Premium seating with exclusive service, champagne welcome, and prime view of the stage.',
       guests: 'Up to 6 Guests',
       location: 'Front Rows · VIP Section',
-      img: 'img/photo_vipjpg.jpg',
+      img: 'IMG/photo vip.png',
       badge: '⭐ VIP'
     },
     best: {
@@ -1513,7 +1527,7 @@
       desc: 'The heart of the action. Premium location with direct dance floor access and vibrant atmosphere.',
       guests: 'Up to 6 Guests',
       location: 'Middle Section · BEST Area',
-      img: 'img/photo_2026 best.jpg',
+      img: 'IMG/photobest.png',
       badge: '🔥 BEST'
     },
     back4: {
@@ -1521,7 +1535,7 @@
       desc: 'Comfortable seating with 4 chairs. Perfect for small groups with a great view.',
       guests: '4 Guests',
       location: 'Back Section · Behind BEST',
-      img: 'img/photo_2026-besttt.jpg',
+      img: 'IMG/photobesttt.png',
       badge: '✨ Behind BEST 4'
     },
     back2: {
@@ -1529,7 +1543,7 @@
       desc: 'Intimate seating with 2 chairs. Perfect for couples or a cozy night out.',
       guests: '2 Guests',
       location: 'Back Section · Behind BEST',
-      img: 'img/photo_2026-besttt.jpg',
+      img: 'IMG/photobesttt.png',
       badge: '✨ Behind BEST 2'
     }
   };
