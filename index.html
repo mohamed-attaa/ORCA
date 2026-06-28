@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🐋 ORCA – Night Club Platform</title>
+  <title>🐋 ORCA – منصة النوادي الليلية</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,6 +16,8 @@
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
+      direction: rtl;
+      text-align: right;
     }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0b0b10; }
@@ -53,7 +55,7 @@
       --r-lg: 24px;
     }
 
-    /* ─── LOADER (circular orca + spin) ────────────── */
+    /* ─── LOADER ────────────────────────────── */
     #loader {
       position: fixed;
       inset: 0;
@@ -65,1127 +67,237 @@
       z-index: 99999;
       transition: opacity 0.8s ease, visibility 0.8s ease;
     }
-    #loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .loader-ring {
-      position: relative;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-ring { position: relative; width: 150px; height: 150px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
     .loader-ring::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      padding: 4px;
+      content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 4px;
       background: conic-gradient(from 0deg, transparent, var(--gold), var(--neon), var(--purple), var(--pink), transparent);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
+      -webkit-mask-composite: xor; mask-composite: exclude;
       animation: spinRing 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
     }
-    @keyframes spinRing {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .loader-ring img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(212, 175, 55, 0.25);
-      box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
-      animation: pulseOrca 2.2s ease-in-out infinite;
-      z-index: 2;
-    }
-    @keyframes pulseOrca {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(212,175,55,0.2); }
-      50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(212,175,55,0.4), 0 0 100px rgba(0,245,212,0.15); }
-    }
-    .loader-dots {
-      display: flex;
-      gap: 14px;
-      margin-top: 30px;
-    }
-    .loader-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--gold);
-      animation: dotJump 1.2s ease-in-out infinite;
-    }
+    @keyframes spinRing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .loader-ring img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(212, 175, 55, 0.25); box-shadow: 0 0 40px rgba(212, 175, 55, 0.25); animation: pulseOrca 2.2s ease-in-out infinite; z-index: 2; }
+    @keyframes pulseOrca { 0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(212,175,55,0.2); } 50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(212,175,55,0.4), 0 0 100px rgba(0,245,212,0.15); } }
+    .loader-dots { display: flex; gap: 14px; margin-top: 30px; }
+    .loader-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); animation: dotJump 1.2s ease-in-out infinite; }
     .loader-dot:nth-child(2) { background: var(--neon); animation-delay: 0.15s; }
     .loader-dot:nth-child(3) { background: var(--purple); animation-delay: 0.3s; }
     .loader-dot:nth-child(4) { background: var(--pink); animation-delay: 0.45s; }
     .loader-dot:nth-child(5) { background: var(--teal); animation-delay: 0.6s; }
-    @keyframes dotJump {
-      0%, 80%, 100% { transform: translateY(0) scale(0.6); opacity: 0.3; }
-      40% { transform: translateY(-20px) scale(1); opacity: 1; }
-    }
-    .loader-text {
-      font-family: var(--ff-display);
-      font-size: 1.8rem;
-      font-weight: 300;
-      letter-spacing: 0.4em;
-      margin-top: 24px;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 2s ease-in-out infinite;
-    }
+    @keyframes dotJump { 0%, 80%, 100% { transform: translateY(0) scale(0.6); opacity: 0.3; } 40% { transform: translateY(-20px) scale(1); opacity: 1; } }
+    .loader-text { font-family: var(--ff-display); font-size: 1.8rem; font-weight: 300; letter-spacing: 0.4em; margin-top: 24px; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 2s ease-in-out infinite; }
     @keyframes shimmer { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.5); } }
 
     /* ─── NAVBAR ─────────────────────────────────────── */
     #navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: fixed; top: 0; left: 0; right: 0;
       padding: 16px 50px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       z-index: 1000;
       background: transparent;
       transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
     }
-    #navbar.scrolled {
-      background: rgba(11, 11, 16, 0.92);
-      backdrop-filter: blur(20px);
-      padding: 10px 50px;
-      border-bottom: 1px solid var(--border);
-    }
-    .orca-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .orca-logo .logo-img {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid rgba(212,175,55,0.4);
-      box-shadow: 0 0 25px rgba(212,175,55,0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      image-rendering: auto;
-      background: #0b0b10;
-    }
-    .orca-logo:hover .logo-img {
-      transform: scale(1.06) rotate(-2deg);
-      box-shadow: 0 0 40px rgba(212,175,55,0.35);
-    }
-    .orca-logo-text {
-      font-family: var(--ff-display);
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--cream);
-    }
+    #navbar.scrolled { background: rgba(11, 11, 16, 0.92); backdrop-filter: blur(20px); padding: 10px 50px; border-bottom: 1px solid var(--border); }
+    .orca-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .orca-logo .logo-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(212,175,55,0.4); box-shadow: 0 0 25px rgba(212,175,55,0.2); transition: transform 0.3s, box-shadow 0.3s; background: #0b0b10; }
+    .orca-logo:hover .logo-img { transform: scale(1.06) rotate(-2deg); box-shadow: 0 0 40px rgba(212,175,55,0.35); }
+    .orca-logo-text { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 700; letter-spacing: 0.15em; color: var(--cream); }
     .orca-logo-text span { background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: var(--ff-ui);
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-decoration: none;
-      position: relative;
-      transition: color 0.3s;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--gold), var(--neon), var(--purple));
-      transition: width 0.3s;
-    }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { font-family: var(--ff-ui); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; position: relative; transition: color 0.3s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--neon), var(--purple)); transition: width 0.3s; }
     .nav-links a:hover { color: var(--cream); }
     .nav-links a:hover::after { width: 100%; }
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .nav-login {
-      font-family: var(--ff-ui);
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 18px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-    }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-login { font-family: var(--ff-ui); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 6px 18px; cursor: pointer; transition: all 0.3s; text-decoration: none; }
     .nav-login:hover { color: var(--neon); border-color: var(--neon); box-shadow: 0 0 20px rgba(0, 245, 212, 0.2); }
-    .nav-register {
-      font-family: var(--ff-ui);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #0b0b10;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      border: none;
-      border-radius: 6px;
-      padding: 6px 18px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-    }
+    .nav-register { font-family: var(--ff-ui); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0b0b10; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); border: none; border-radius: 6px; padding: 6px 18px; cursor: pointer; transition: all 0.3s; text-decoration: none; }
     .nav-register:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3); }
 
-    /* ─── TRANSLATION BUTTON ─────────────────────────── */
-    .translate-btn {
-      font-family: var(--ff-ui);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--cream);
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4px 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-    }
-    .translate-btn:hover {
-      background: rgba(212, 175, 55, 0.25);
-      border-color: var(--gold);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-    }
-    .translate-btn .lang-icon {
-      font-size: 0.9rem;
-    }
+    .translate-btn { font-family: var(--ff-ui); font-size: 0.85rem; font-weight: 500; color: var(--cream); background: rgba(212, 175, 55, 0.15); border: 1px solid var(--border); border-radius: 6px; padding: 4px 14px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+    .translate-btn:hover { background: rgba(212, 175, 55, 0.25); border-color: var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
+    .translate-btn .lang-icon { font-size: 0.9rem; }
 
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 26px;
-      height: 2px;
-      background: var(--cream);
-      transition: all 0.3s;
-    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 26px; height: 2px; background: var(--cream); transition: all 0.3s; }
 
     /* ─── HERO ───────────────────────────────────────── */
-    #hero {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transform: scale(1.08);
-      transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), transform 10s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: opacity, transform;
-    }
+    #hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+    .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transform: scale(1.08); transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), transform 10s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: opacity, transform; }
     .slide.active { opacity: 1; transform: scale(1); }
     .slide-1 { background: linear-gradient(135deg, rgba(10, 10, 16, 0.6), rgba(0, 0, 0, 0.3), rgba(10, 10, 16, 0.7)), url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80') center/cover; }
     .slide-2 { background: linear-gradient(135deg, rgba(10, 10, 16, 0.6), rgba(0, 0, 0, 0.3), rgba(10, 10, 16, 0.7)), url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=1600&q=80') center/cover; }
     .slide-3 { background: linear-gradient(135deg, rgba(10, 10, 16, 0.6), rgba(0, 0, 0, 0.3), rgba(10, 10, 16, 0.7)), url('https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=1600&q=80') center/cover; }
     .slide-4 { background: linear-gradient(135deg, rgba(10, 10, 16, 0.6), rgba(0, 0, 0, 0.3), rgba(10, 10, 16, 0.7)), url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80') center/cover; }
-    .slide::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 30% 80%, rgba(212, 175, 55, 0.08), transparent 70%),
-                  radial-gradient(ellipse 60% 40% at 70% 20%, rgba(0, 245, 212, 0.05), transparent 60%);
-      z-index: 0;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(11, 11, 16, 0.1) 0%, rgba(11, 11, 16, 0.4) 50%, rgba(11, 11, 16, 0.9) 100%);
-      z-index: 1;
-    }
-    .hero-content {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 0 60px;
-      max-width: 700px;
-    }
-    .hero-eyebrow {
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 12px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s 0.3s forwards;
-    }
-    .hero-title {
-      font-family: var(--ff-display);
-      font-size: clamp(2.6rem, 6vw, 4.8rem);
-      font-weight: 300;
-      line-height: 1.05;
-      color: var(--cream);
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1s 0.5s forwards;
-    }
-    .hero-title em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-subtitle {
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: var(--text-dim);
-      max-width: 420px;
-      margin-bottom: 28px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s 0.7s forwards;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s 0.9s forwards;
-    }
+    .slide::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 30% 80%, rgba(212, 175, 55, 0.08), transparent 70%), radial-gradient(ellipse 60% 40% at 70% 20%, rgba(0, 245, 212, 0.05), transparent 60%); z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(11, 11, 16, 0.1) 0%, rgba(11, 11, 16, 0.4) 50%, rgba(11, 11, 16, 0.9) 100%); z-index: 1; }
+    .hero-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 60px; max-width: 700px; }
+    .hero-eyebrow { font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.3s forwards; }
+    .hero-title { font-family: var(--ff-display); font-size: clamp(2.6rem, 6vw, 4.8rem); font-weight: 300; line-height: 1.05; color: var(--cream); letter-spacing: -0.02em; margin-bottom: 16px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.5s forwards; }
+    .hero-title em { font-style: italic; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-subtitle { font-size: 0.9rem; font-weight: 300; color: var(--text-dim); max-width: 420px; margin-bottom: 28px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.7s forwards; }
+    .hero-actions { display: flex; gap: 12px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.9s forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    .btn-primary {
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #0b0b10;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      border: none;
-      border-radius: 6px;
-      padding: 9px 20px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.3s;
-    }
+    .btn-primary { font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #0b0b10; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); border: none; border-radius: 6px; padding: 9px 20px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.3s; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35); }
-    .btn-ghost {
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 9px 20px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .btn-ghost { font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 9px 20px; cursor: pointer; text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; }
     .btn-ghost:hover { color: var(--neon); border-color: var(--neon); box-shadow: 0 0 30px rgba(0, 245, 212, 0.15); }
 
-    .slider-dots {
-      position: absolute;
-      bottom: 32px;
-      left: 60px;
-      z-index: 3;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .dot {
-      width: 28px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.4s;
-    }
+    .slider-dots { position: absolute; bottom: 32px; left: 60px; z-index: 3; display: flex; gap: 10px; align-items: center; }
+    .dot { width: 28px; height: 3px; background: rgba(255, 255, 255, 0.2); cursor: pointer; border-radius: 4px; transition: all 0.4s; }
     .dot.active { background: var(--gold); width: 48px; box-shadow: 0 0 20px var(--gold); }
-    .slider-counter {
-      position: absolute;
-      bottom: 28px;
-      right: 60px;
-      z-index: 3;
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: var(--text-dim);
-    }
+    .slider-counter { position: absolute; bottom: 28px; right: 60px; z-index: 3; font-family: var(--ff-ui); font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-dim); }
     .slider-counter span { color: var(--gold); font-weight: 600; }
-    .slide-progress {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      z-index: 4;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold), var(--neon), var(--purple));
-      width: 0%;
-      animation: progressBar 8s linear infinite;
-    }
+    .slide-progress { position: absolute; bottom: 0; left: 0; z-index: 4; height: 3px; background: linear-gradient(90deg, var(--gold), var(--neon), var(--purple)); width: 0%; animation: progressBar 8s linear infinite; }
     @keyframes progressBar { from { width: 0%; } to { width: 100%; } }
-    .scroll-indicator {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      animation: fadeUp 1s 1.5s forwards;
-    }
-    .scroll-indicator span {
-      font-family: var(--ff-ui);
-      font-size: 0.5rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
+    .scroll-indicator { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 1s 1.5s forwards; }
+    .scroll-indicator span { font-family: var(--ff-ui); font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
     @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.2); } }
 
     /* ─── SECTION BASE ───────────────────────────────── */
     section { position: relative; }
-    .section-eyebrow {
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: var(--ff-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 300;
-      color: var(--cream);
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-    }
-    .section-title em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .section-line {
-      width: 48px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold), var(--neon), var(--purple));
-      margin-top: 16px;
-      margin-bottom: 16px;
-      border-radius: 4px;
-    }
+    .section-eyebrow { font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+    .section-title { font-family: var(--ff-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; color: var(--cream); line-height: 1.1; letter-spacing: -0.01em; }
+    .section-title em { font-style: italic; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-line { width: 48px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--neon), var(--purple)); margin-top: 16px; margin-bottom: 16px; border-radius: 4px; }
 
     /* ─── STATS ──────────────────────────────────────── */
-    #stats {
-      padding: 60px 60px;
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
-    }
-    .stat-item {
-      text-align: center;
-      position: relative;
-    }
-    .stat-item::after {
-      content: '';
-      position: absolute;
-      right: -15px;
-      top: 20%;
-      bottom: 20%;
-      width: 1px;
-      background: var(--border);
-    }
+    #stats { padding: 60px 60px; background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+    .stat-item { text-align: center; position: relative; }
+    .stat-item::after { content: ''; position: absolute; left: -15px; top: 20%; bottom: 20%; width: 1px; background: var(--border); }
     .stat-item:last-child::after { display: none; }
-    .stat-num {
-      font-family: var(--ff-display);
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--cream);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .stat-num span {
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .stat-label {
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grey);
-    }
+    .stat-num { font-family: var(--ff-display); font-size: 3rem; font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 6px; }
+    .stat-num span { background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grey); }
 
     /* ─── VENUES ─────────────────────────────────────── */
-    #venues {
-      padding: 100px 60px;
-      background: var(--dark);
-    }
-    .venues-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 50px;
-    }
-    .venues-intro {
-      color: var(--grey);
-      font-size: 0.85rem;
-      max-width: 300px;
-      line-height: 1.7;
-    }
-    .venues-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .venue-card {
-      position: relative;
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s, border-color 0.4s;
-      height: 480px;
-      display: flex;
-      flex-direction: column;
-    }
-    .venue-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--gold);
-      border-color: var(--gold);
-    }
-    .venue-img {
-      position: relative;
-      flex: 1;
-      overflow: hidden;
-    }
-    .venue-img-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+    #venues { padding: 100px 60px; background: var(--dark); }
+    .venues-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
+    .venues-intro { color: var(--grey); font-size: 0.85rem; max-width: 300px; line-height: 1.7; }
+    .venues-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .venue-card { position: relative; border-radius: var(--r-lg); overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s, border-color 0.4s; height: 480px; display: flex; flex-direction: column; }
+    .venue-card:hover { transform: translateY(-10px); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--gold); border-color: var(--gold); }
+    .venue-img { position: relative; flex: 1; overflow: hidden; }
+    .venue-img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     .venue-card:hover .venue-img-bg { transform: scale(1.05); }
     .cosmo-bg { background: linear-gradient(to bottom, rgba(10, 10, 16, 0.2), rgba(10, 10, 16, 0.8)), url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=800&q=80') center/cover; }
     .ovid-bg { background: linear-gradient(to bottom, rgba(10, 10, 16, 0.2), rgba(10, 10, 16, 0.8)), url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80') center/cover; }
     .echo-bg { background: linear-gradient(to bottom, rgba(10, 10, 16, 0.2), rgba(10, 10, 16, 0.8)), url('https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=800&q=80') center/cover; }
-    .venue-glow {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
+    .venue-glow { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s; }
     .venue-card:hover .venue-glow { opacity: 1; }
     .cosmo-glow { background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(212, 175, 55, 0.2), transparent 70%); }
     .ovid-glow { background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(155, 93, 229, 0.2), transparent 70%); }
     .echo-glow { background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0, 245, 212, 0.2), transparent 70%); }
-    .venue-info {
-      padding: 20px 24px 20px;
-      background: linear-gradient(to bottom, transparent, var(--surface));
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 2;
-    }
-    .venue-tag {
-      font-family: var(--ff-ui);
-      font-size: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 3px 12px;
-      border-radius: 50px;
-      margin-bottom: 8px;
-      display: inline-block;
-      backdrop-filter: blur(4px);
-    }
+    .venue-info { padding: 20px 24px 20px; background: linear-gradient(to bottom, transparent, var(--surface)); position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; }
+    .venue-tag { font-family: var(--ff-ui); font-size: 0.5rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 12px; border-radius: 50px; margin-bottom: 8px; display: inline-block; backdrop-filter: blur(4px); }
     .tag-cosmo { background: rgba(212, 175, 55, 0.2); color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.3); }
     .tag-ovid { background: rgba(155, 93, 229, 0.2); color: var(--purple); border: 1px solid rgba(155, 93, 229, 0.3); }
     .tag-echo { background: rgba(0, 245, 212, 0.2); color: var(--neon); border: 1px solid rgba(0, 245, 212, 0.3); }
-    .venue-name {
-      font-family: var(--ff-display);
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--cream);
-      letter-spacing: 0.02em;
-      margin-bottom: 4px;
-    }
-    .venue-desc {
-      font-size: 0.7rem;
-      color: var(--grey);
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-    .venue-meta {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 12px;
-    }
-    .venue-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: var(--ff-ui);
-      font-size: 0.55rem;
-      color: var(--grey);
-    }
+    .venue-name { font-family: var(--ff-display); font-size: 1.4rem; font-weight: 600; color: var(--cream); letter-spacing: 0.02em; margin-bottom: 4px; }
+    .venue-desc { font-size: 0.7rem; color: var(--grey); margin-bottom: 12px; line-height: 1.4; }
+    .venue-meta { display: flex; gap: 16px; margin-bottom: 12px; }
+    .venue-meta-item { display: flex; align-items: center; gap: 4px; font-family: var(--ff-ui); font-size: 0.55rem; color: var(--grey); }
     .venue-meta-item svg { width: 12px; height: 12px; opacity: 0.5; }
-    .venue-btn {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--cream);
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    .venue-btn:hover {
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      border-color: transparent;
-      color: #0b0b10;
-    }
+    .venue-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--border); border-radius: 8px; color: var(--cream); font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.3s; }
+    .venue-btn:hover { background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); border-color: transparent; color: #0b0b10; }
     .venue-btn svg { width: 14px; height: 14px; transition: transform 0.3s; }
     .venue-btn:hover svg { transform: translateX(6px) rotate(-45deg); }
 
     /* ─── CARS ───────────────────────────────────────── */
-    #cars {
-      padding: 100px 60px;
-      background: var(--surface);
-    }
-    .cars-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 50px;
-    }
-    .cars-intro {
-      color: var(--grey);
-      font-size: 0.85rem;
-      max-width: 300px;
-      line-height: 1.7;
-    }
-    .cars-slider-wrapper {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--r-lg);
-    }
-    .cars-track {
-      display: flex;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .car-card {
-      min-width: calc(33.333% - 16px);
-      margin: 0 8px;
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      background: var(--dark);
-      border: 1px solid var(--border);
-      transition: all 0.4s ease;
-    }
-    .car-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--neon);
-      box-shadow: 0 20px 60px rgba(0, 245, 212, 0.1);
-    }
-    .car-card .car-image {
-      height: 220px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-    .car-card .car-image .car-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 60%, rgba(11, 11, 16, 0.8) 100%);
-    }
-    .car-card .car-image .car-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      padding: 3px 12px;
-      border-radius: 50px;
-      background: rgba(0, 245, 212, 0.15);
-      border: 1px solid rgba(0, 245, 212, 0.3);
-      color: var(--neon);
-      font-family: var(--ff-ui);
-      font-size: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      backdrop-filter: blur(8px);
-    }
+    #cars { padding: 100px 60px; background: var(--surface); }
+    .cars-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
+    .cars-intro { color: var(--grey); font-size: 0.85rem; max-width: 300px; line-height: 1.7; }
+    .cars-slider-wrapper { position: relative; overflow: hidden; border-radius: var(--r-lg); }
+    .cars-track { display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .car-card { min-width: calc(33.333% - 16px); margin: 0 8px; border-radius: var(--r-lg); overflow: hidden; background: var(--dark); border: 1px solid var(--border); transition: all 0.4s ease; }
+    .car-card:hover { transform: translateY(-6px); border-color: var(--neon); box-shadow: 0 20px 60px rgba(0, 245, 212, 0.1); }
+    .car-card .car-image { height: 220px; background-size: cover; background-position: center; position: relative; }
+    .car-card .car-image .car-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(11, 11, 16, 0.8) 100%); }
+    .car-card .car-image .car-badge { position: absolute; top: 12px; left: 12px; padding: 3px 12px; border-radius: 50px; background: rgba(0, 245, 212, 0.15); border: 1px solid rgba(0, 245, 212, 0.3); color: var(--neon); font-family: var(--ff-ui); font-size: 0.5rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; backdrop-filter: blur(8px); }
     .car-card .car-info { padding: 18px 22px 22px; }
-    .car-card .car-info .car-name {
-      font-family: var(--ff-display);
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 2px;
-    }
-    .car-card .car-info .car-model {
-      font-size: 0.7rem;
-      color: var(--grey);
-      margin-bottom: 10px;
-    }
-    .car-card .car-info .car-specs {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .car-card .car-info .car-specs span {
-      font-family: var(--ff-ui);
-      font-size: 0.55rem;
-      color: var(--grey);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .car-card .car-info .car-whatsapp {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      color: #0b0b10;
-      font-family: var(--ff-ui);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .car-card .car-info .car-whatsapp:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
-    }
+    .car-card .car-info .car-name { font-family: var(--ff-display); font-size: 1.2rem; font-weight: 600; color: var(--cream); margin-bottom: 2px; }
+    .car-card .car-info .car-model { font-size: 0.7rem; color: var(--grey); margin-bottom: 10px; }
+    .car-card .car-info .car-specs { display: flex; gap: 14px; margin-bottom: 14px; }
+    .car-card .car-info .car-specs span { font-family: var(--ff-ui); font-size: 0.55rem; color: var(--grey); display: flex; align-items: center; gap: 4px; }
+    .car-card .car-info .car-whatsapp { width: 100%; padding: 10px; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); color: #0b0b10; font-family: var(--ff-ui); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+    .car-card .car-info .car-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3); }
     .car-1 { background-image: url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80'); }
     .car-2 { background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80'); }
     .car-3 { background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80'); }
     .car-4 { background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80'); }
 
-    .cars-controls {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 32px;
-    }
-    .cars-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--cream);
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .cars-controls { display: flex; justify-content: center; gap: 16px; margin-top: 32px; }
+    .cars-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--cream); font-size: 18px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
     .cars-btn:hover { border-color: var(--neon); background: rgba(0, 245, 212, 0.1); color: var(--neon); }
-    .cars-dots {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .cars-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--border);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
+    .cars-dots { display: flex; gap: 10px; align-items: center; }
+    .cars-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.3s; }
     .cars-dot.active { background: var(--neon); transform: scale(1.3); box-shadow: 0 0 20px var(--neon); }
 
     /* ─── HOW IT WORKS ────────────────────────────────── */
-    #how {
-      padding: 100px 60px;
-      background: var(--dark);
-      position: relative;
-      overflow: hidden;
-    }
-    #how .how-diagonal {
-      position: absolute;
-      top: 0; right: 0; bottom: 0;
-      width: 40%;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(0, 245, 212, 0.08), rgba(155, 93, 229, 0.08));
-      clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
-      pointer-events: none;
-    }
-    #how .how-grid-bg {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 245, 212, 0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
+    #how { padding: 100px 60px; background: var(--dark); position: relative; overflow: hidden; }
+    #how .how-diagonal { position: absolute; top: 0; right: 0; bottom: 0; width: 40%; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(0, 245, 212, 0.08), rgba(155, 93, 229, 0.08)); clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%); pointer-events: none; }
+    #how .how-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 212, 0.04) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
     .how-header { text-align: center; margin-bottom: 70px; position: relative; z-index: 1; }
-    .how-timeline {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-    .how-timeline::before {
-      content: '';
-      position: absolute;
-      top: 46px;
-      left: 12.5%;
-      right: 12.5%;
-      height: 2px;
-      background: linear-gradient(to right, var(--gold), var(--neon), var(--purple), var(--pink));
-      z-index: 0;
-      border-radius: 4px;
-    }
-    .how-step-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 0 16px;
-      position: relative;
-    }
-    .step-circle {
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-      margin-bottom: 24px;
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      flex-shrink: 0;
-    }
-    .step-circle::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 1px solid transparent;
-      transition: border-color 0.4s, transform 0.4s;
-    }
-    .how-step-card:hover .step-circle {
-      border-color: var(--neon);
-      background: var(--surface2);
-      box-shadow: 0 0 50px rgba(0, 245, 212, 0.2), inset 0 0 30px rgba(212, 175, 55, 0.1);
-      transform: translateY(-4px);
-    }
+    .how-timeline { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .how-timeline::before { content: ''; position: absolute; top: 46px; left: 12.5%; right: 12.5%; height: 2px; background: linear-gradient(to right, var(--gold), var(--neon), var(--purple), var(--pink)); z-index: 0; border-radius: 4px; }
+    .how-step-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; }
+    .step-circle { width: 88px; height: 88px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; margin-bottom: 24px; transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); flex-shrink: 0; }
+    .step-circle::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid transparent; transition: border-color 0.4s, transform 0.4s; }
+    .how-step-card:hover .step-circle { border-color: var(--neon); background: var(--surface2); box-shadow: 0 0 50px rgba(0, 245, 212, 0.2), inset 0 0 30px rgba(212, 175, 55, 0.1); transform: translateY(-4px); }
     .how-step-card:hover .step-circle::before { border-color: var(--gold); transform: scale(1.1); }
-    .step-circle svg {
-      width: 30px;
-      height: 30px;
-      color: var(--neon);
-      transition: transform 0.4s;
-    }
+    .step-circle svg { width: 30px; height: 30px; color: var(--neon); transition: transform 0.4s; }
     .how-step-card:hover .step-circle svg { transform: scale(1.2) rotate(4deg); }
-    .step-circle-num {
-      position: absolute;
-      top: -6px; right: -6px;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      color: #0b0b10;
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .step-line-dot {
-      position: absolute;
-      top: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--neon);
-      border: 2px solid var(--dark);
-      z-index: 3;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .how-step-card:hover .step-line-dot {
-      transform: translateX(-50%) scale(1.5);
-      box-shadow: 0 0 30px var(--neon);
-    }
-    .step-card-title {
-      font-family: var(--ff-display);
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 8px;
-    }
-    .step-card-desc {
-      font-size: 0.7rem;
-      color: var(--grey);
-      line-height: 1.6;
-      max-width: 180px;
-      margin: 0 auto;
-    }
+    .step-circle-num { position: absolute; top: -6px; right: -6px; width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); color: #0b0b10; font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-line-dot { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; border-radius: 50%; background: var(--neon); border: 2px solid var(--dark); z-index: 3; transition: transform 0.3s, box-shadow 0.3s; }
+    .how-step-card:hover .step-line-dot { transform: translateX(-50%) scale(1.5); box-shadow: 0 0 30px var(--neon); }
+    .step-card-title { font-family: var(--ff-display); font-size: 1.1rem; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
+    .step-card-desc { font-size: 0.7rem; color: var(--grey); line-height: 1.6; max-width: 180px; margin: 0 auto; }
 
-    .how-detail {
-      margin-top: 60px;
-      position: relative;
-      z-index: 1;
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      background: var(--surface);
-    }
-    .how-detail-tabs {
-      display: flex;
-      border-bottom: 1px solid var(--border);
-    }
-    .how-tab {
-      flex: 1;
-      padding: 14px 20px;
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--grey);
-      cursor: pointer;
-      transition: all 0.3s;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      background: transparent;
-      border-top: none; border-left: none; border-right: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .how-detail { margin-top: 60px; position: relative; z-index: 1; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; background: var(--surface); }
+    .how-detail-tabs { display: flex; border-bottom: 1px solid var(--border); }
+    .how-tab { flex: 1; padding: 14px 20px; font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); cursor: pointer; transition: all 0.3s; border-bottom: 2px solid transparent; margin-bottom: -1px; background: transparent; border-top: none; border-left: none; border-right: none; display: flex; align-items: center; gap: 8px; }
     .how-tab:hover { color: var(--neon); background: rgba(0, 245, 212, 0.05); }
     .how-tab.active { color: var(--neon); border-bottom-color: var(--neon); background: rgba(0, 245, 212, 0.08); }
     .how-tab .tab-num { font-family: var(--ff-display); font-size: 1rem; font-weight: 300; opacity: 0.4; }
     .how-tab.active .tab-num { opacity: 1; color: var(--neon); }
     .how-detail-content { display: none; padding: 32px; }
     .how-detail-content.active { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-    .how-detail-text h3 {
-      font-family: var(--ff-display);
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
+    .how-detail-text h3 { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 600; color: var(--cream); margin-bottom: 12px; }
     .how-detail-text p { font-size: 0.8rem; color: var(--grey); line-height: 1.8; margin-bottom: 16px; }
     .how-detail-text ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .how-detail-text ul li {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .how-detail-text ul li::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      flex-shrink: 0;
-    }
-    .how-detail-visual {
-      background: var(--dark);
-      border-radius: var(--r);
-      border: 1px solid var(--border);
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      min-height: 200px;
-      justify-content: center;
-    }
-    .mini-ui-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      animation: miniFloat 3s ease-in-out infinite;
-    }
+    .how-detail-text ul li { font-size: 0.75rem; color: var(--text-dim); display: flex; align-items: center; gap: 10px; }
+    .how-detail-text ul li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); flex-shrink: 0; }
+    .how-detail-visual { background: var(--dark); border-radius: var(--r); border: 1px solid var(--border); padding: 30px; display: flex; flex-direction: column; gap: 12px; min-height: 200px; justify-content: center; }
+    .mini-ui-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; animation: miniFloat 3s ease-in-out infinite; }
     .mini-ui-row:nth-child(2) { animation-delay: 0.4s; }
     .mini-ui-row:nth-child(3) { animation-delay: 0.8s; }
     @keyframes miniFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
     .mini-dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--neon)); flex-shrink: 0; }
     .mini-label { font-family: var(--ff-ui); font-size: 0.65rem; color: var(--grey); flex: 1; }
-    .mini-badge {
-      font-family: var(--ff-ui);
-      font-size: 0.5rem;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 50px;
-      background: rgba(0, 245, 212, 0.15);
-      color: var(--neon);
-      border: 1px solid rgba(0, 245, 212, 0.2);
-    }
+    .mini-badge { font-family: var(--ff-ui); font-size: 0.5rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; background: rgba(0, 245, 212, 0.15); color: var(--neon); border: 1px solid rgba(0, 245, 212, 0.2); }
 
     /* ─── EXPERIENCE ──────────────────────────────────── */
-    #experience {
-      padding: 100px 60px;
-      background: var(--surface);
-      position: relative;
-    }
-    #experience::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), var(--neon), var(--purple), transparent);
-    }
-    .exp-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      margin-top: 40px;
-      position: relative;
-      z-index: 1;
-    }
-    .exp-item {
-      background: var(--dark);
-      padding: 36px 28px;
-      transition: background 0.3s;
-    }
+    #experience { padding: 100px 60px; background: var(--surface); position: relative; }
+    #experience::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), var(--neon), var(--purple), transparent); }
+    .exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin-top: 40px; position: relative; z-index: 1; }
+    .exp-item { background: var(--dark); padding: 36px 28px; transition: background 0.3s; }
     .exp-item:hover { background: var(--surface); }
-    .exp-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(0, 245, 212, 0.08);
-      border: 1px solid rgba(0, 245, 212, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-    }
+    .exp-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 245, 212, 0.08); border: 1px solid rgba(0, 245, 212, 0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
     .exp-icon svg { width: 20px; height: 20px; color: var(--neon); }
-    .exp-item h3 {
-      font-family: var(--ff-display);
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--cream);
-      margin-bottom: 8px;
-    }
+    .exp-item h3 { font-family: var(--ff-display); font-size: 1.1rem; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
     .exp-item p { font-size: 0.75rem; color: var(--grey); line-height: 1.6; }
 
-    /* ─── TESTIMONIALS ───────────────────────────────── */
+    /* ─── REVIEWS (مع الفورم) ───────────────────────── */
     #vibe {
       padding: 100px 60px;
       background: var(--dark);
-      text-align: center;
     }
     .vibe-quote {
       font-family: var(--ff-display);
@@ -1196,14 +308,22 @@
       max-width: 720px;
       margin: 0 auto 40px;
       line-height: 1.4;
+      text-align: center;
     }
     .vibe-quote::before { content: '\201C'; color: var(--gold); }
     .vibe-quote::after { content: '\201D'; color: var(--neon); }
-    .vibe-cards {
+    .vibe-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .vibe-cards {
+      display: flex;
+      flex-direction: column;
       gap: 20px;
-      text-align: left;
     }
     .vibe-card {
       padding: 28px;
@@ -1216,138 +336,130 @@
       border-color: var(--gold);
       transform: translateY(-3px);
     }
-    .vibe-stars { display: flex; gap: 4px; margin-bottom: 10px; }
+    .vibe-stars { display: flex; gap: 4px; margin-bottom: 10px; direction: ltr; }
     .vibe-stars svg { width: 14px; height: 14px; color: var(--neon); fill: var(--neon); }
     .vibe-text { font-size: 0.8rem; color: var(--grey); line-height: 1.6; margin-bottom: 12px; }
-    .vibe-author {
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
+    .vibe-author { font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 600; color: var(--grey); letter-spacing: 0.08em; text-transform: uppercase; }
+    .vibe-author span { display: block; font-weight: 400; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-top: 2px; }
+
+    /* ─── REVIEW FORM ────────────────────────────────── */
+    .review-form-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .review-form-wrapper h3 {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
       font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .review-form-wrapper .subtitle {
+      font-size: 0.75rem;
       color: var(--grey);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      margin-bottom: 20px;
     }
-    .vibe-author span {
-      display: block;
-      font-weight: 400;
+    .star-rating {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      direction: ltr;
+      justify-content: flex-start;
+    }
+    .star-rating button {
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: var(--grey);
+      cursor: pointer;
+      transition: color 0.2s, transform 0.2s;
+      padding: 0 4px;
+      line-height: 1;
+    }
+    .star-rating button.active {
+      color: var(--neon);
+      text-shadow: 0 0 20px var(--neon);
+    }
+    .star-rating button:hover {
+      transform: scale(1.2);
+      color: var(--gold);
+    }
+    .review-form input,
+    .review-form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--dark);
+      color: var(--cream);
+      font-family: var(--ff-body);
+      font-size: 0.85rem;
+      transition: border-color 0.3s;
+      outline: none;
+    }
+    .review-form input:focus,
+    .review-form textarea:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 20px rgba(0, 245, 212, 0.1);
+    }
+    .review-form textarea { resize: vertical; min-height: 100px; }
+    .review-form .submit-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
       background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-top: 2px;
+      color: #0b0b10;
+      font-family: var(--ff-ui);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
     }
+    .review-form .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+    }
+    .form-success {
+      display: none;
+      padding: 16px;
+      background: rgba(0, 245, 212, 0.1);
+      border: 1px solid var(--neon);
+      border-radius: 8px;
+      color: var(--neon);
+      text-align: center;
+      margin-top: 12px;
+    }
+    .form-success.show { display: block; }
 
     /* ─── CTA ─────────────────────────────────────────── */
-    #cta {
-      padding: 100px 60px;
-      background: var(--surface);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    #cta::after {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.1), rgba(0, 245, 212, 0.1), rgba(155, 93, 229, 0.1), transparent 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
+    #cta { padding: 100px 60px; background: var(--surface); text-align: center; position: relative; overflow: hidden; }
+    #cta::after { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(212, 175, 55, 0.1), rgba(0, 245, 212, 0.1), rgba(155, 93, 229, 0.1), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
     #cta .section-title { font-size: clamp(2.2rem, 4vw, 4rem); margin-bottom: 16px; position: relative; z-index: 1; }
-    #cta p {
-      color: var(--grey);
-      max-width: 480px;
-      margin: 0 auto 32px;
-      font-size: 0.85rem;
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
-    }
+    #cta p { color: var(--grey); max-width: 480px; margin: 0 auto 32px; font-size: 0.85rem; line-height: 1.7; position: relative; z-index: 1; }
     .cta-btns { display: flex; gap: 12px; justify-content: center; position: relative; z-index: 1; }
 
     /* ─── FOOTER ──────────────────────────────────────── */
-    #footer {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      padding: 60px 60px 30px;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-    .footer-brand p {
-      font-size: 0.75rem;
-      color: var(--grey);
-      line-height: 1.7;
-      margin-top: 14px;
-      max-width: 260px;
-    }
-    .footer-col h4 {
-      font-family: var(--ff-ui);
-      font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
-    }
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .footer-links a {
-      font-size: 0.7rem;
-      color: var(--grey);
-      text-decoration: none;
-      transition: color 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .footer-links a::before {
-      content: '';
-      width: 4px;
-      height: 2px;
-      background: var(--neon);
-      opacity: 0;
-      transition: opacity 0.3s, width 0.3s;
-    }
+    #footer { background: var(--dark); border-top: 1px solid var(--border); padding: 60px 60px 30px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand p { font-size: 0.75rem; color: var(--grey); line-height: 1.7; margin-top: 14px; max-width: 260px; }
+    .footer-col h4 { font-family: var(--ff-ui); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 0.7rem; color: var(--grey); text-decoration: none; transition: color 0.3s; display: flex; align-items: center; gap: 6px; }
+    .footer-links a::before { content: ''; width: 4px; height: 2px; background: var(--neon); opacity: 0; transition: opacity 0.3s, width 0.3s; }
     .footer-links a:hover { color: var(--neon); }
     .footer-links a:hover::before { opacity: 1; width: 10px; }
-    .footer-bottom {
-      border-top: 1px solid var(--border);
-      padding-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
     .footer-copy { font-size: 0.65rem; color: var(--grey); }
     .footer-copy span { background: linear-gradient(135deg, var(--gold), var(--neon), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .footer-social { display: flex; gap: 10px; }
-    .social-btn {
-      width: 32px;
-      height: 32px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--grey);
-      cursor: pointer;
-      transition: all 0.3s;
-      background: transparent;
-    }
+    .social-btn { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--grey); cursor: pointer; transition: all 0.3s; background: transparent; }
     .social-btn:hover { border-color: var(--neon); color: var(--neon); background: rgba(0, 245, 212, 0.08); }
     .social-btn svg { width: 14px; height: 14px; }
 
@@ -1389,6 +501,7 @@
       .car-card { min-width: calc(50% - 16px); }
       .how-detail-tabs { flex-wrap: wrap; }
       .how-tab { flex: 1 1 50%; }
+      .vibe-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
       .nav-links, .nav-login { display: none; }
@@ -1452,7 +565,6 @@
       }
       .venues-grid { grid-template-columns: 1fr; }
       .exp-grid { grid-template-columns: 1fr; }
-      .vibe-cards { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
       .cta-btns { flex-direction: column; align-items: center; }
       .hero-title { font-size: 2.2rem; }
@@ -1471,6 +583,8 @@
       .step-circle svg { width: 24px; height: 24px; }
       #how { padding: 60px 30px; }
       #how .how-header { margin-bottom: 40px; }
+      .vibe-grid { grid-template-columns: 1fr; }
+      .review-form-wrapper { padding: 24px; }
     }
     @media (max-width: 480px) {
       .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1485,7 +599,7 @@
 </head>
 <body>
 
-<!-- ═══════════ LOADER (circular orca with spin) ═══════════ -->
+<!-- ═══════════ LOADER ═══════════ -->
 <div id="loader">
   <div class="loader-ring">
     <img src="IMG/logo.png" alt="ORCA" />
@@ -1507,21 +621,21 @@
     <span class="orca-logo-text">ORC<span>A</span></span>
   </a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#venues" data-en="Venues" data-ar="الأماكن">Venues</a></li>
-    <li><a href="#cars" data-en="Cars" data-ar="السيارات">Cars</a></li>
-    <li><a href="#how" data-en="How It Works" data-ar="طريقة العمل">How It Works</a></li>
-    <li><a href="#vibe" data-en="Reviews" data-ar="التقييمات">Reviews</a></li>
+    <li><a href="#venues" data-en="Venues" data-ar="الأماكن">الأماكن</a></li>
+    <li><a href="#cars" data-en="Cars" data-ar="السيارات">السيارات</a></li>
+    <li><a href="#how" data-en="How It Works" data-ar="طريقة العمل">طريقة العمل</a></li>
+    <li><a href="#vibe" data-en="Reviews" data-ar="التقييمات">التقييمات</a></li>
     <div class="mobile-auth" style="display:none; width:100%; flex-direction:column; gap:12px; margin-top:8px; padding-top:16px; border-top:1px solid rgba(212, 175, 55, 0.15);">
-      <a href="#" class="nav-login-mobile" data-en="Log In" data-ar="تسجيل الدخول">Log In</a>
-      <a href="#" class="nav-register-mobile" data-en="Register" data-ar="إنشاء حساب">Register</a>
+      <a href="#" class="nav-login-mobile" data-en="Log In" data-ar="تسجيل الدخول">تسجيل الدخول</a>
+      <a href="#" class="nav-register-mobile" data-en="Register" data-ar="إنشاء حساب">إنشاء حساب</a>
     </div>
   </ul>
   <div class="nav-actions">
-    <a href="#" class="nav-login" data-en="Log In" data-ar="تسجيل الدخول">Log In</a>
-    <a href="#" class="nav-register" data-en="Register" data-ar="إنشاء حساب">Register</a>
+    <a href="#" class="nav-login" data-en="Log In" data-ar="تسجيل الدخول">تسجيل الدخول</a>
+    <a href="#" class="nav-register" data-en="Register" data-ar="إنشاء حساب">إنشاء حساب</a>
     <button class="translate-btn" id="translateBtn" onclick="toggleTranslation()">
       <span class="lang-icon">🌐</span>
-      <span id="langLabel">English</span>
+      <span id="langLabel">عربي</span>
     </button>
     <div class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -1537,15 +651,15 @@
   <div class="slide slide-4"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow" data-en="— Where the Night Begins" data-ar="— حيث يبدأ الليل">— Where the Night Begins</p>
-    <h1 class="hero-title" data-en="Experience<br>the <em>Deep</em><br>Night" data-ar="اختبر<br><em>الليل</em><br>العميق">Experience<br>the <em>Deep</em><br>Night</h1>
-    <p class="hero-subtitle" data-en="One platform. Three extraordinary venues. Book your table and live a night to remember." data-ar="منصة واحدة. ثلاث أماكن استثنائية. احجز طاولتك وعش ليلة لا تُنسى.">One platform. Three extraordinary venues. Book your table and live a night to remember.</p>
+    <p class="hero-eyebrow" data-en="— Where the Night Begins" data-ar="— حيث يبدأ الليل">— حيث يبدأ الليل</p>
+    <h1 class="hero-title" data-en="Experience<br>the <em>Deep</em><br>Night" data-ar="اختبر<br><em>الليل</em><br>العميق">اختبر<br><em>الليل</em><br>العميق</h1>
+    <p class="hero-subtitle" data-en="One platform. Three extraordinary venues. Book your table and live a night to remember." data-ar="منصة واحدة. ثلاث أماكن استثنائية. احجز طاولتك وعش ليلة لا تُنسى.">منصة واحدة. ثلاث أماكن استثنائية. احجز طاولتك وعش ليلة لا تُنسى.</p>
     <div class="hero-actions">
       <a href="#venues" class="btn-primary" data-en="Explore" data-ar="استكشف">
-        Explore
+        استكشف
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#how" class="btn-ghost" data-en="How It Works" data-ar="طريقة العمل">How It Works</a>
+      <a href="#how" class="btn-ghost" data-en="How It Works" data-ar="طريقة العمل">طريقة العمل</a>
     </div>
   </div>
   <div class="slider-dots">
@@ -1557,7 +671,7 @@
   <div class="slider-counter"><span id="slide-current">01</span> / 04</div>
   <div class="slide-progress" id="slide-progress"></div>
   <div class="scroll-indicator">
-    <span data-en="Scroll" data-ar="تمرير">Scroll</span>
+    <span data-en="Scroll" data-ar="تمرير">تمرير</span>
     <div class="scroll-line"></div>
   </div>
 </section>
@@ -1567,19 +681,19 @@
   <div class="stats-grid">
     <div class="stat-item reveal-left">
       <div class="stat-num"><span id="count1">0</span>+</div>
-      <div class="stat-label" data-en="Bookings Completed" data-ar="حجوزات مكتملة">Bookings Completed</div>
+      <div class="stat-label" data-en="Bookings Completed" data-ar="حجوزات مكتملة">حجوزات مكتملة</div>
     </div>
     <div class="stat-item reveal-left reveal-delay-1">
       <div class="stat-num"><span id="count2">0</span></div>
-      <div class="stat-label" data-en="Night Clubs" data-ar="نوادي ليلية">Night Clubs</div>
+      <div class="stat-label" data-en="Night Clubs" data-ar="نوادي ليلية">نوادي ليلية</div>
     </div>
     <div class="stat-item reveal-right reveal-delay-2">
       <div class="stat-num"><span id="count3">0</span>%</div>
-      <div class="stat-label" data-en="Customer Satisfaction" data-ar="رضا العملاء">Customer Satisfaction</div>
+      <div class="stat-label" data-en="Customer Satisfaction" data-ar="رضا العملاء">رضا العملاء</div>
     </div>
     <div class="stat-item reveal-right reveal-delay-3">
       <div class="stat-num"><span id="count4">0</span>+</div>
-      <div class="stat-label" data-en="Tables Available" data-ar="طاولات متاحة">Tables Available</div>
+      <div class="stat-label" data-en="Tables Available" data-ar="طاولات متاحة">طاولات متاحة</div>
     </div>
   </div>
 </section>
@@ -1588,11 +702,11 @@
 <section id="venues">
   <div class="venues-header reveal">
     <div>
-      <div class="section-eyebrow" data-en="Venues" data-ar="الأماكن">Venues</div>
-      <h2 class="section-title" data-en="Choose Your <em>Destination</em><br>For The Night" data-ar="اختر <em>وجهتك</em><br>لهذه الليلة">Choose Your <em>Destination</em><br>For The Night</h2>
+      <div class="section-eyebrow" data-en="Venues" data-ar="الأماكن">الأماكن</div>
+      <h2 class="section-title" data-en="Choose Your <em>Destination</em><br>For The Night" data-ar="اختر <em>وجهتك</em><br>لهذه الليلة">اختر <em>وجهتك</em><br>لهذه الليلة</h2>
       <div class="section-line"></div>
     </div>
-    <p class="venues-intro" data-en="Three unique venues, each with its own personality and experience. From refined elegance to electric energy — find what suits you." data-ar="ثلاثة أماكن فريدة، لكل منها شخصيتها وتجربتها الخاصة. من الأناقة الراقية إلى الطاقة الكهربائية — ابحث عن ما يناسبك.">Three unique venues, each with its own personality and experience. From refined elegance to electric energy — find what suits you.</p>
+    <p class="venues-intro" data-en="Three unique venues, each with its own personality and experience. From refined elegance to electric energy — find what suits you." data-ar="ثلاثة أماكن فريدة، لكل منها شخصيتها وتجربتها الخاصة. من الأناقة الراقية إلى الطاقة الكهربائية — ابحث عن ما يناسبك.">ثلاثة أماكن فريدة، لكل منها شخصيتها وتجربتها الخاصة. من الأناقة الراقية إلى الطاقة الكهربائية — ابحث عن ما يناسبك.</p>
   </div>
   <div class="venues-grid">
     <div class="venue-card reveal-scale reveal-delay-1">
@@ -1600,14 +714,14 @@
         <div class="venue-img-bg cosmo-bg"></div>
         <div class="venue-glow cosmo-glow"></div>
         <div class="venue-info">
-          <span class="venue-tag tag-cosmo" data-en="Lounge & Club" data-ar="لاونج ونادي">Lounge & Club</span>
-          <div class="venue-name">Cosmo Lounge<br>&amp; Club</div>
-          <div class="venue-desc" data-en="Refined, calm, designed for those who know what they want." data-ar="راقي، هادئ، مصمم لأولئك الذين يعرفون ما يريدون.">Refined, calm, designed for those who know what they want.</div>
+          <span class="venue-tag tag-cosmo" data-en="Lounge & Club" data-ar="لاونج ونادي">لاونج ونادي</span>
+          <div class="venue-name">كوزمو لاونج<br>&amp; نادي</div>
+          <div class="venue-desc" data-en="Refined, calm, designed for those who know what they want." data-ar="راقي، هادئ، مصمم لأولئك الذين يعرفون ما يريدون.">راقي، هادئ، مصمم لأولئك الذين يعرفون ما يريدون.</div>
           <div class="venue-meta">
-            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>9 PM – 4 AM</div>
-            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Max 200</div>
+            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>9 مساءً – 4 صباحًا</div>
+            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>الحد الأقصى 200</div>
           </div>
-          <a href="COSMO.html" class="venue-btn" data-en="View Cosmo" data-ar="عرض كوزمو">View Cosmo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="COSMO.html" class="venue-btn" data-en="View Cosmo" data-ar="عرض كوزمو">عرض كوزمو <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
     </div>
@@ -1617,14 +731,14 @@
         <div class="venue-img-bg ovid-bg"></div>
         <div class="venue-glow ovid-glow"></div>
         <div class="venue-info">
-          <span class="venue-tag tag-ovid" data-en="Club" data-ar="نادي">Club</span>
-          <div class="venue-name">OVID<br>CLUB</div>
-          <div class="venue-desc" data-en="Non-stop energy. Music that cuts through. A night without end." data-ar="طاقة لا تتوقف. موسيقى تخترق القلب. ليلة بلا نهاية.">Non-stop energy. Music that cuts through. A night without end.</div>
+          <span class="venue-tag tag-ovid" data-en="Club" data-ar="نادي">نادي</span>
+          <div class="venue-name">أوفيد<br>كلوب</div>
+          <div class="venue-desc" data-en="Non-stop energy. Music that cuts through. A night without end." data-ar="طاقة لا تتوقف. موسيقى تخترق القلب. ليلة بلا نهاية.">طاقة لا تتوقف. موسيقى تخترق القلب. ليلة بلا نهاية.</div>
           <div class="venue-meta">
-            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>10 PM – 6 AM</div>
-            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Max 500</div>
+            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>10 مساءً – 6 صباحًا</div>
+            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>الحد الأقصى 500</div>
           </div>
-          <a href="#" class="venue-btn" data-en="Book Table" data-ar="احجز طاولة">Book Table <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="#" class="venue-btn" data-en="Book Table" data-ar="احجز طاولة">احجز طاولة <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
     </div>
@@ -1633,14 +747,14 @@
         <div class="venue-img-bg echo-bg"></div>
         <div class="venue-glow echo-glow"></div>
         <div class="venue-info">
-          <span class="venue-tag tag-echo" data-en="Privé" data-ar="خاص">Privé</span>
-          <div class="venue-name">ECHO<br>Privé</div>
-          <div class="venue-desc" data-en="Exclusive, private, for the elite. Where luxury meets privacy." data-ar="حصري، خاص، للنخبة. حيث يلتقي الفخامة بالخصوصية.">Exclusive, private, for the elite. Where luxury meets privacy.</div>
+          <span class="venue-tag tag-echo" data-en="Privé" data-ar="خاص">خاص</span>
+          <div class="venue-name">إيكو<br>بريفيه</div>
+          <div class="venue-desc" data-en="Exclusive, private, for the elite. Where luxury meets privacy." data-ar="حصري، خاص، للنخبة. حيث يلتقي الفخامة بالخصوصية.">حصري، خاص، للنخبة. حيث يلتقي الفخامة بالخصوصية.</div>
           <div class="venue-meta">
-            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>8 PM – 3 AM</div>
-            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Max 80</div>
+            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>8 مساءً – 3 صباحًا</div>
+            <div class="venue-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>الحد الأقصى 80</div>
           </div>
-          <a href="#" class="venue-btn" data-en="Book Table" data-ar="احجز طاولة">Book Table <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="#" class="venue-btn" data-en="Book Table" data-ar="احجز طاولة">احجز طاولة <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
     </div>
@@ -1651,44 +765,44 @@
 <section id="cars">
   <div class="cars-header reveal-right">
     <div>
-      <div class="section-eyebrow" data-en="Cars" data-ar="السيارات">Cars</div>
-      <h2 class="section-title" data-en="Choose Your <em>Ride</em><br>In Style" data-ar="اختر <em>رحلتك</em><br>بأناقة">Choose Your <em>Ride</em><br>In Style</h2>
+      <div class="section-eyebrow" data-en="Cars" data-ar="السيارات">السيارات</div>
+      <h2 class="section-title" data-en="Choose Your <em>Ride</em><br>In Style" data-ar="اختر <em>رحلتك</em><br>بأناقة">اختر <em>رحلتك</em><br>بأناقة</h2>
       <div class="section-line"></div>
     </div>
-    <p class="cars-intro" data-en="Browse our selection of luxury cars available for booking. Click the WhatsApp button to book directly." data-ar="تصفح مجموعتنا من السيارات الفاخرة المتاحة للحجز. انقر على زر واتساب للحجز مباشرة.">Browse our selection of luxury cars available for booking. Click the WhatsApp button to book directly.</p>
+    <p class="cars-intro" data-en="Browse our selection of luxury cars available for booking. Click the WhatsApp button to book directly." data-ar="تصفح مجموعتنا من السيارات الفاخرة المتاحة للحجز. انقر على زر واتساب للحجز مباشرة.">تصفح مجموعتنا من السيارات الفاخرة المتاحة للحجز. انقر على زر واتساب للحجز مباشرة.</p>
   </div>
   <div class="cars-slider-wrapper">
     <div class="cars-track" id="carsTrack">
       <div class="car-card">
-        <div class="car-image car-1"><div class="car-overlay"></div><span class="car-badge" data-en="🚀 Available" data-ar="🚀 متاحة">🚀 Available</span></div>
+        <div class="car-image car-1"><div class="car-overlay"></div><span class="car-badge" data-en="🚀 Available" data-ar="🚀 متاحة">🚀 متاحة</span></div>
         <div class="car-info">
-          <div class="car-name">Mercedes-Benz</div><div class="car-model">AMG GT 63 S</div>
-          <div class="car-specs"><span>⚡ 630 HP</span><span>🛞 4 Seats</span><span>🎨 Black</span></div>
-          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Mercedes%20AMG%20GT" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 Book via WhatsApp</a>
+          <div class="car-name">مرسيدس-بنز</div><div class="car-model">AMG GT 63 S</div>
+          <div class="car-specs"><span>⚡ 630 حصان</span><span>🛞 4 مقاعد</span><span>🎨 أسود</span></div>
+          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Mercedes%20AMG%20GT" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 احجز عبر واتساب</a>
         </div>
       </div>
       <div class="car-card">
-        <div class="car-image car-2"><div class="car-overlay"></div><span class="car-badge" data-en="🌟 VIP" data-ar="🌟 كبار الشخصيات">🌟 VIP</span></div>
+        <div class="car-image car-2"><div class="car-overlay"></div><span class="car-badge" data-en="🌟 VIP" data-ar="🌟 كبار الشخصيات">🌟 كبار الشخصيات</span></div>
         <div class="car-info">
-          <div class="car-name">Porsche</div><div class="car-model">911 Turbo S</div>
-          <div class="car-specs"><span>⚡ 650 HP</span><span>🛞 4 Seats</span><span>🎨 White</span></div>
-          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Porsche%20911%20Turbo%20S" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 Book via WhatsApp</a>
+          <div class="car-name">بورشه</div><div class="car-model">911 Turbo S</div>
+          <div class="car-specs"><span>⚡ 650 حصان</span><span>🛞 4 مقاعد</span><span>🎨 أبيض</span></div>
+          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Porsche%20911%20Turbo%20S" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 احجز عبر واتساب</a>
         </div>
       </div>
       <div class="car-card">
-        <div class="car-image car-3"><div class="car-overlay"></div><span class="car-badge" data-en="💎 Luxury" data-ar="💎 فاخرة">💎 Luxury</span></div>
+        <div class="car-image car-3"><div class="car-overlay"></div><span class="car-badge" data-en="💎 Luxury" data-ar="💎 فاخرة">💎 فاخرة</span></div>
         <div class="car-info">
-          <div class="car-name">Rolls-Royce</div><div class="car-model">Ghost</div>
-          <div class="car-specs"><span>⚡ 571 HP</span><span>🛞 5 Seats</span><span>🎨 Silver</span></div>
-          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Rolls-Royce%20Ghost" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 Book via WhatsApp</a>
+          <div class="car-name">رولز رويس</div><div class="car-model">غوست</div>
+          <div class="car-specs"><span>⚡ 571 حصان</span><span>🛞 5 مقاعد</span><span>🎨 فضي</span></div>
+          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Rolls-Royce%20Ghost" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 احجز عبر واتساب</a>
         </div>
       </div>
       <div class="car-card">
-        <div class="car-image car-4"><div class="car-overlay"></div><span class="car-badge" data-en="🔥 Exclusive" data-ar="🔥 حصرية">🔥 Exclusive</span></div>
+        <div class="car-image car-4"><div class="car-overlay"></div><span class="car-badge" data-en="🔥 Exclusive" data-ar="🔥 حصرية">🔥 حصرية</span></div>
         <div class="car-info">
-          <div class="car-name">Lamborghini</div><div class="car-model">Huracán EVO</div>
-          <div class="car-specs"><span>⚡ 640 HP</span><span>🛞 2 Seats</span><span>🎨 Green</span></div>
-          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Lamborghini%20Huracan%20EVO" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 Book via WhatsApp</a>
+          <div class="car-name">لامبورجيني</div><div class="car-model">هوراكان إيفو</div>
+          <div class="car-specs"><span>⚡ 640 حصان</span><span>🛞 2 مقاعد</span><span>🎨 أخضر</span></div>
+          <a href="https://wa.me/201234567890?text=I%20want%20to%20book%20Lamborghini%20Huracan%20EVO" class="car-whatsapp" target="_blank" data-en="💬 Book via WhatsApp" data-ar="💬 احجز عبر واتساب">💬 احجز عبر واتساب</a>
         </div>
       </div>
     </div>
@@ -1711,8 +825,8 @@
   <div class="how-grid-bg"></div>
   <div class="how-header">
     <div class="reveal">
-      <div class="section-eyebrow" style="display:inline-block;" data-en="How It Works" data-ar="طريقة العمل">How It Works</div>
-      <h2 class="section-title" style="margin-top:12px;" data-en="Four Steps to a<br><em>Perfect Night</em>" data-ar="أربع خطوات<br>لـ<em>ليلة مثالية</em>">Four Steps to a<br><em>Perfect Night</em></h2>
+      <div class="section-eyebrow" style="display:inline-block;" data-en="How It Works" data-ar="طريقة العمل">طريقة العمل</div>
+      <h2 class="section-title" style="margin-top:12px;" data-en="Four Steps to a<br><em>Perfect Night</em>" data-ar="أربع خطوات<br>لـ<em>ليلة مثالية</em>">أربع خطوات<br>لـ<em>ليلة مثالية</em></h2>
       <div class="section-line" style="margin: 16px auto 0;"></div>
     </div>
   </div>
@@ -1723,8 +837,8 @@
         <span class="step-circle-num">01</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       </div>
-      <div class="step-card-title" data-en="Choose Your<br>Venue" data-ar="اختر<br>مكانك">Choose Your<br>Venue</div>
-      <p class="step-card-desc" data-en="Browse Cosmo, OVID, or ECHO Privé. Check photos, timings, and capacity — then pick what fits your night." data-ar="تصفح كوزمو، أوفيد، أو إيكو بريفيه. تحقق من الصور، المواعيد، والسعة — ثم اختر ما يناسب ليلتك.">Browse Cosmo, OVID, or ECHO Privé. Check photos, timings, and capacity — then pick what fits your night.</p>
+      <div class="step-card-title" data-en="Choose Your<br>Venue" data-ar="اختر<br>مكانك">اختر<br>مكانك</div>
+      <p class="step-card-desc" data-en="Browse Cosmo, OVID, or ECHO Privé. Check photos, timings, and capacity — then pick what fits your night." data-ar="تصفح كوزمو، أوفيد، أو إيكو بريفيه. تحقق من الصور، المواعيد، والسعة — ثم اختر ما يناسب ليلتك.">تصفح كوزمو، أوفيد، أو إيكو بريفيه. تحقق من الصور، المواعيد، والسعة — ثم اختر ما يناسب ليلتك.</p>
     </div>
     <div class="how-step-card reveal reveal-delay-2">
       <div class="step-line-dot"></div>
@@ -1732,8 +846,8 @@
         <span class="step-circle-num">02</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
-      <div class="step-card-title" data-en="Book Your<br>Table" data-ar="احجز<br>طاولتك">Book Your<br>Table</div>
-      <p class="step-card-desc" data-en="Select your table, choose the date and number of guests. Daily, weekly, or monthly — the table is exclusively yours." data-ar="اختر طاولتك، حدد التاريخ وعدد الضيوف. يوميًا، أسبوعيًا، أو شهريًا — الطاولة ملكك حصريًا.">Select your table, choose the date and number of guests. Daily, weekly, or monthly — the table is exclusively yours.</p>
+      <div class="step-card-title" data-en="Book Your<br>Table" data-ar="احجز<br>طاولتك">احجز<br>طاولتك</div>
+      <p class="step-card-desc" data-en="Select your table, choose the date and number of guests. Daily, weekly, or monthly — the table is exclusively yours." data-ar="اختر طاولتك، حدد التاريخ وعدد الضيوف. يوميًا، أسبوعيًا، أو شهريًا — الطاولة ملكك حصريًا.">اختر طاولتك، حدد التاريخ وعدد الضيوف. يوميًا، أسبوعيًا، أو شهريًا — الطاولة ملكك حصريًا.</p>
     </div>
     <div class="how-step-card reveal reveal-delay-3">
       <div class="step-line-dot"></div>
@@ -1741,8 +855,8 @@
         <span class="step-circle-num">03</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </div>
-      <div class="step-card-title" data-en="Pay via<br>WhatsApp" data-ar="ادفع عبر<br>واتساب">Pay via<br>WhatsApp</div>
-      <p class="step-card-desc" data-en="Connect with the venue directly on WhatsApp, confirm your details, and send your deposit. Fast and simple." data-ar="تواصل مع المكان مباشرة عبر واتساب، أكد تفاصيلك، وأرسل الإيداع. سريع وبسيط.">Connect with the venue directly on WhatsApp, confirm your details, and send your deposit. Fast and simple.</p>
+      <div class="step-card-title" data-en="Pay via<br>WhatsApp" data-ar="ادفع عبر<br>واتساب">ادفع عبر<br>واتساب</div>
+      <p class="step-card-desc" data-en="Connect with the venue directly on WhatsApp, confirm your details, and send your deposit. Fast and simple." data-ar="تواصل مع المكان مباشرة عبر واتساب، أكد تفاصيلك، وأرسل الإيداع. سريع وبسيط.">تواصل مع المكان مباشرة عبر واتساب، أكد تفاصيلك، وأرسل الإيداع. سريع وبسيط.</p>
     </div>
     <div class="how-step-card reveal reveal-delay-4">
       <div class="step-line-dot"></div>
@@ -1750,78 +864,78 @@
         <span class="step-circle-num">04</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
       </div>
-      <div class="step-card-title" data-en="Enjoy Your<br>Night" data-ar="استمتع<br>بليلتك">Enjoy Your<br>Night</div>
-      <p class="step-card-desc" data-en="Receive your official E-Ticket with QR Code. Show it at the entrance and dive into your night." data-ar="استلم تذكرتك الإلكترونية الرسمية مع رمز QR. اعرضها عند المدخل وانطلق في ليلتك.">Receive your official E-Ticket with QR Code. Show it at the entrance and dive into your night.</p>
+      <div class="step-card-title" data-en="Enjoy Your<br>Night" data-ar="استمتع<br>بليلتك">استمتع<br>بليلتك</div>
+      <p class="step-card-desc" data-en="Receive your official E-Ticket with QR Code. Show it at the entrance and dive into your night." data-ar="استلم تذكرتك الإلكترونية الرسمية مع رمز QR. اعرضها عند المدخل وانطلق في ليلتك.">استلم تذكرتك الإلكترونية الرسمية مع رمز QR. اعرضها عند المدخل وانطلق في ليلتك.</p>
     </div>
   </div>
 
   <div class="how-detail reveal" style="margin-top:60px;">
     <div class="how-detail-tabs">
-      <button class="how-tab active" onclick="switchTab(0)"><span class="tab-num">01</span> <span data-en="Choose Venue" data-ar="اختر مكان">Choose Venue</span></button>
-      <button class="how-tab" onclick="switchTab(1)"><span class="tab-num">02</span> <span data-en="Book Table" data-ar="احجز طاولة">Book Table</span></button>
-      <button class="how-tab" onclick="switchTab(2)"><span class="tab-num">03</span> <span data-en="Pay & Confirm" data-ar="ادفع وأكد">Pay & Confirm</span></button>
-      <button class="how-tab" onclick="switchTab(3)"><span class="tab-num">04</span> <span data-en="Your Night" data-ar="ليلتك">Your Night</span></button>
+      <button class="how-tab active" onclick="switchTab(0)"><span class="tab-num">01</span> <span data-en="Choose Venue" data-ar="اختر مكان">اختر مكان</span></button>
+      <button class="how-tab" onclick="switchTab(1)"><span class="tab-num">02</span> <span data-en="Book Table" data-ar="احجز طاولة">احجز طاولة</span></button>
+      <button class="how-tab" onclick="switchTab(2)"><span class="tab-num">03</span> <span data-en="Pay & Confirm" data-ar="ادفع وأكد">ادفع وأكد</span></button>
+      <button class="how-tab" onclick="switchTab(3)"><span class="tab-num">04</span> <span data-en="Your Night" data-ar="ليلتك">ليلتك</span></button>
     </div>
     <div class="how-detail-content active" id="tab-0">
       <div class="how-detail-text">
-        <h3 data-en="Find the Venue That Speaks to You" data-ar="ابحث عن المكان الذي يناسبك">Find the Venue That Speaks to You</h3>
-        <p data-en="ORCA brings together three entirely different nightlife experiences on one platform. Each venue has its own identity, audience, and atmosphere." data-ar="تجمع ORCA ثلاث تجارب حياة ليلية مختلفة تمامًا على منصة واحدة. لكل مكان هويته وجمهوره وأجوائه الخاصة.">ORCA brings together three entirely different nightlife experiences on one platform. Each venue has its own identity, audience, and atmosphere.</p>
+        <h3 data-en="Find the Venue That Speaks to You" data-ar="ابحث عن المكان الذي يناسبك">ابحث عن المكان الذي يناسبك</h3>
+        <p data-en="ORCA brings together three entirely different nightlife experiences on one platform. Each venue has its own identity, audience, and atmosphere." data-ar="تجمع ORCA ثلاث تجارب حياة ليلية مختلفة تمامًا على منصة واحدة. لكل مكان هويته وجمهوره وأجوائه الخاصة.">تجمع ORCA ثلاث تجارب حياة ليلية مختلفة تمامًا على منصة واحدة. لكل مكان هويته وجمهوره وأجوائه الخاصة.</p>
         <ul>
-          <li data-en="Cosmo Lounge — refined elegance, capped at 200 guests" data-ar="كوزمو لاونج — أناقة راقية، بسعة 200 ضيف">Cosmo Lounge — refined elegance, capped at 200 guests</li>
-          <li data-en="OVID CLUB — high-energy music from 10 PM to 6 AM" data-ar="أوفيد كلوب — موسيقى عالية الطاقة من 10 مساءً إلى 6 صباحًا">OVID CLUB — high-energy music from 10 PM to 6 AM</li>
-          <li data-en="ECHO Privé — fully exclusive, max 80 guests, total privacy" data-ar="إيكو بريفيه — حصري بالكامل، حد أقصى 80 ضيف، خصوصية تامة">ECHO Privé — fully exclusive, max 80 guests, total privacy</li>
-          <li data-en="Side-by-side comparison with photos, hours, and capacity" data-ar="مقارنة جنبًا إلى جنب مع الصور، الساعات، والسعة">Side-by-side comparison with photos, hours, and capacity</li>
+          <li data-en="Cosmo Lounge — refined elegance, capped at 200 guests" data-ar="كوزمو لاونج — أناقة راقية، بسعة 200 ضيف">كوزمو لاونج — أناقة راقية، بسعة 200 ضيف</li>
+          <li data-en="OVID CLUB — high-energy music from 10 PM to 6 AM" data-ar="أوفيد كلوب — موسيقى عالية الطاقة من 10 مساءً إلى 6 صباحًا">أوفيد كلوب — موسيقى عالية الطاقة من 10 مساءً إلى 6 صباحًا</li>
+          <li data-en="ECHO Privé — fully exclusive, max 80 guests, total privacy" data-ar="إيكو بريفيه — حصري بالكامل، حد أقصى 80 ضيف، خصوصية تامة">إيكو بريفيه — حصري بالكامل، حد أقصى 80 ضيف، خصوصية تامة</li>
+          <li data-en="Side-by-side comparison with photos, hours, and capacity" data-ar="مقارنة جنبًا إلى جنب مع الصور، الساعات، والسعة">مقارنة جنبًا إلى جنب مع الصور، الساعات، والسعة</li>
         </ul>
       </div>
       <div class="how-detail-visual">
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Cosmo Lounge &amp; Club" data-ar="كوزمو لاونج ونادي">Cosmo Lounge &amp; Club</span><span class="mini-badge">9 PM – 4 AM</span></div>
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="OVID CLUB" data-ar="أوفيد كلوب">OVID CLUB</span><span class="mini-badge">10 PM – 6 AM</span></div>
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="ECHO Privé" data-ar="إيكو بريفيه">ECHO Privé</span><span class="mini-badge">8 PM – 3 AM</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Cosmo Lounge &amp; Club" data-ar="كوزمو لاونج ونادي">كوزمو لاونج ونادي</span><span class="mini-badge">9 مساءً – 4 صباحًا</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="OVID CLUB" data-ar="أوفيد كلوب">أوفيد كلوب</span><span class="mini-badge">10 مساءً – 6 صباحًا</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="ECHO Privé" data-ar="إيكو بريفيه">إيكو بريفيه</span><span class="mini-badge">8 مساءً – 3 صباحًا</span></div>
       </div>
     </div>
     <div class="how-detail-content" id="tab-1">
       <div class="how-detail-text">
-        <h3 data-en="Your Table, Your Rules" data-ar="طاولتك، قواعدك">Your Table, Your Rules</h3>
-        <p data-en="Pick from available tables for the date you want. Every table is reserved exclusively for you — no surprises, no sharing." data-ar="اختر من الطاولات المتاحة للتاريخ الذي تريده. كل طاولة محجوزة لك حصريًا — لا مفاجآت، لا مشاركة.">Pick from available tables for the date you want. Every table is reserved exclusively for you — no surprises, no sharing.</p>
+        <h3 data-en="Your Table, Your Rules" data-ar="طاولتك، قواعدك">طاولتك، قواعدك</h3>
+        <p data-en="Pick from available tables for the date you want. Every table is reserved exclusively for you — no surprises, no sharing." data-ar="اختر من الطاولات المتاحة للتاريخ الذي تريده. كل طاولة محجوزة لك حصريًا — لا مفاجآت، لا مشاركة.">اختر من الطاولات المتاحة للتاريخ الذي تريده. كل طاولة محجوزة لك حصريًا — لا مفاجآت، لا مشاركة.</p>
         <ul>
-          <li data-en="Choose any available date from the calendar" data-ar="اختر أي تاريخ متاح من التقويم">Choose any available date from the calendar</li>
-          <li data-en="Daily, weekly, or monthly bookings available" data-ar="حجوزات يومية، أسبوعية، أو شهرية متاحة">Daily, weekly, or monthly bookings available</li>
-          <li data-en="Select number of guests up to table capacity" data-ar="حدد عدد الضيوف حتى سعة الطاولة">Select number of guests up to table capacity</li>
-          <li data-en="Add special requests before confirming" data-ar="أضف طلبات خاصة قبل التأكيد">Add special requests before confirming</li>
+          <li data-en="Choose any available date from the calendar" data-ar="اختر أي تاريخ متاح من التقويم">اختر أي تاريخ متاح من التقويم</li>
+          <li data-en="Daily, weekly, or monthly bookings available" data-ar="حجوزات يومية، أسبوعية، أو شهرية متاحة">حجوزات يومية، أسبوعية، أو شهرية متاحة</li>
+          <li data-en="Select number of guests up to table capacity" data-ar="حدد عدد الضيوف حتى سعة الطاولة">حدد عدد الضيوف حتى سعة الطاولة</li>
+          <li data-en="Add special requests before confirming" data-ar="أضف طلبات خاصة قبل التأكيد">أضف طلبات خاصة قبل التأكيد</li>
         </ul>
       </div>
       <div class="how-detail-visual">
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Table 12 — VIP Area" data-ar="طاولة 12 — منطقة كبار الشخصيات">Table 12 — VIP Area</span><span class="mini-badge" data-en="Available" data-ar="متاحة">Available</span></div>
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Sat 28 June — 4 Guests" data-ar="السبت 28 يونيو — 4 ضيوف">Sat 28 June — 4 Guests</span><span class="mini-badge" data-en="Selected" data-ar="مختارة">Selected</span></div>
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Confirm via WhatsApp" data-ar="أكد عبر واتساب">Confirm via WhatsApp</span><span class="mini-badge" data-en="Next →" data-ar="التالي ←">Next →</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Table 12 — VIP Area" data-ar="طاولة 12 — منطقة كبار الشخصيات">طاولة 12 — منطقة كبار الشخصيات</span><span class="mini-badge" data-en="Available" data-ar="متاحة">متاحة</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Sat 28 June — 4 Guests" data-ar="السبت 28 يونيو — 4 ضيوف">السبت 28 يونيو — 4 ضيوف</span><span class="mini-badge" data-en="Selected" data-ar="مختارة">مختارة</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Confirm via WhatsApp" data-ar="أكد عبر واتساب">أكد عبر واتساب</span><span class="mini-badge" data-en="Next →" data-ar="التالي ←">التالي ←</span></div>
       </div>
     </div>
     <div class="how-detail-content" id="tab-2">
       <div class="how-detail-text">
-        <h3 data-en="Payment is Simple &amp; Instant" data-ar="الدفع سهل وفوري">Payment is Simple &amp; Instant</h3>
-        <p data-en="After selecting your table, you're connected directly to the venue on WhatsApp. No middlemen, no waiting — confirm and pay in minutes." data-ar="بعد اختيار طاولتك، يتم توصيلك مباشرة بالمكان عبر واتساب. لا وسطاء، لا انتظار — أكد وادفع في دقائق.">After selecting your table, you're connected directly to the venue on WhatsApp. No middlemen, no waiting — confirm and pay in minutes.</p>
+        <h3 data-en="Payment is Simple &amp; Instant" data-ar="الدفع سهل وفوري">الدفع سهل وفوري</h3>
+        <p data-en="After selecting your table, you're connected directly to the venue on WhatsApp. No middlemen, no waiting — confirm and pay in minutes." data-ar="بعد اختيار طاولتك، يتم توصيلك مباشرة بالمكان عبر واتساب. لا وسطاء، لا انتظار — أكد وادفع في دقائق.">بعد اختيار طاولتك، يتم توصيلك مباشرة بالمكان عبر واتساب. لا وسطاء، لا انتظار — أكد وادفع في دقائق.</p>
         <ul>
-          <li data-en="Direct WhatsApp link opens automatically" data-ar="رابط واتساب المباشر يفتح تلقائيًا">Direct WhatsApp link opens automatically</li>
-          <li data-en="Send deposit to confirm your booking" data-ar="أرسل الإيداع لتأكيد حجزك">Send deposit to confirm your booking</li>
-          <li data-en="Venue confirms your reservation within minutes" data-ar="يؤكد المكان حجزك في دقائق">Venue confirms your reservation within minutes</li>
-          <li data-en="Remaining balance paid on arrival" data-ar="الرصيد المتبقي يُدفع عند الوصول">Remaining balance paid on arrival</li>
+          <li data-en="Direct WhatsApp link opens automatically" data-ar="رابط واتساب المباشر يفتح تلقائيًا">رابط واتساب المباشر يفتح تلقائيًا</li>
+          <li data-en="Send deposit to confirm your booking" data-ar="أرسل الإيداع لتأكيد حجزك">أرسل الإيداع لتأكيد حجزك</li>
+          <li data-en="Venue confirms your reservation within minutes" data-ar="يؤكد المكان حجزك في دقائق">يؤكد المكان حجزك في دقائق</li>
+          <li data-en="Remaining balance paid on arrival" data-ar="الرصيد المتبقي يُدفع عند الوصول">الرصيد المتبقي يُدفع عند الوصول</li>
         </ul>
       </div>
       <div class="how-detail-visual">
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="WhatsApp Opened" data-ar="تم فتح واتساب">WhatsApp Opened</span><span class="mini-badge" data-en="Connected" data-ar="متصل">Connected</span></div>
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Deposit Sent" data-ar="تم إرسال الإيداع">Deposit Sent</span><span class="mini-badge" data-en="Processing" data-ar="قيد المعالجة">Processing</span></div>
-        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Booking Confirmed ✓" data-ar="تم تأكيد الحجز ✓">Booking Confirmed ✓</span><span class="mini-badge" data-en="Done" data-ar="تم">Done</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="WhatsApp Opened" data-ar="تم فتح واتساب">تم فتح واتساب</span><span class="mini-badge" data-en="Connected" data-ar="متصل">متصل</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Deposit Sent" data-ar="تم إرسال الإيداع">تم إرسال الإيداع</span><span class="mini-badge" data-en="Processing" data-ar="قيد المعالجة">قيد المعالجة</span></div>
+        <div class="mini-ui-row"><div class="mini-dot"></div><span class="mini-label" data-en="Booking Confirmed ✓" data-ar="تم تأكيد الحجز ✓">تم تأكيد الحجز ✓</span><span class="mini-badge" data-en="Done" data-ar="تم">تم</span></div>
       </div>
     </div>
     <div class="how-detail-content" id="tab-3">
       <div class="how-detail-text">
-        <h3 data-en="Walk In Like You Own the Night" data-ar="ادخل وكأنك تملك الليل">Walk In Like You Own the Night</h3>
-        <p data-en="Once confirmed, your E-Ticket arrives with a unique QR code. Show it at the entrance — no queues, no confusion." data-ar="بمجرد التأكيد، تصل تذكرتك الإلكترونية مع رمز QR فريد. اعرضها عند المدخل — لا طوابير، لا ارتباك.">Once confirmed, your E-Ticket arrives with a unique QR code. Show it at the entrance — no queues, no confusion.</p>
+        <h3 data-en="Walk In Like You Own the Night" data-ar="ادخل وكأنك تملك الليل">ادخل وكأنك تملك الليل</h3>
+        <p data-en="Once confirmed, your E-Ticket arrives with a unique QR code. Show it at the entrance — no queues, no confusion." data-ar="بمجرد التأكيد، تصل تذكرتك الإلكترونية مع رمز QR فريد. اعرضها عند المدخل — لا طوابير، لا ارتباك.">بمجرد التأكيد، تصل تذكرتك الإلكترونية مع رمز QR فريد. اعرضها عند المدخل — لا طوابير، لا ارتباك.</p>
         <ul>
-          <li data-en="Official E-Ticket delivered instantly" data-ar="تذكرة إلكترونية رسمية يتم تسليمها فورًا">Official E-Ticket delivered instantly</li>
-          <li data-en="QR Code scanned at entry for instant verification" data-ar="يتم مسح رمز QR عند الدخول للتحقق الفوري">QR Code scanned at entry for instant verification</li>
-          <li data-en="Your table is waiting — no check-in hassle" data-ar="طاولتك في انتظارك — لا عناء تسجيل الدخول">Your table is waiting — no check-in hassle</li>
-          <li data-en="Leave a review after your experience" data-ar="اترك تقييمًا بعد تجربتك">Leave a review after your experience</li>
+          <li data-en="Official E-Ticket delivered instantly" data-ar="تذكرة إلكترونية رسمية يتم تسليمها فورًا">تذكرة إلكترونية رسمية يتم تسليمها فورًا</li>
+          <li data-en="QR Code scanned at entry for instant verification" data-ar="يتم مسح رمز QR عند الدخول للتحقق الفوري">يتم مسح رمز QR عند الدخول للتحقق الفوري</li>
+          <li data-en="Your table is waiting — no check-in hassle" data-ar="طاولتك في انتظارك — لا عناء تسجيل الدخول">طاولتك في انتظارك — لا عناء تسجيل الدخول</li>
+          <li data-en="Leave a review after your experience" data-ar="اترك تقييمًا بعد تجربتك">اترك تقييمًا بعد تجربتك</li>
         </ul>
       </div>
       <div class="how-detail-visual" style="align-items:center;">
@@ -1837,8 +951,8 @@
             <rect x="62" y="48" width="14" height="8" rx="1" fill="#d4af37" opacity="0.3"/>
             <rect x="48" y="62" width="28" height="14" rx="1" fill="#d4af37" opacity="0.2"/>
           </svg>
-          <div style="font-family:var(--ff-ui);font-size:0.6rem;color:var(--gold);letter-spacing:0.1em;" data-en="YOUR E-TICKET QR CODE" data-ar="رمز QR للتذكرتك الإلكترونية">YOUR E-TICKET QR CODE</div>
-          <div style="font-family:var(--ff-ui);font-size:0.5rem;color:var(--grey);margin-top:4px;" data-en="Scan at entrance for instant access" data-ar="امسح عند المدخل للدخول الفوري">Scan at entrance for instant access</div>
+          <div style="font-family:var(--ff-ui);font-size:0.6rem;color:var(--gold);letter-spacing:0.1em;" data-en="YOUR E-TICKET QR CODE" data-ar="رمز QR للتذكرتك الإلكترونية">رمز QR للتذكرتك الإلكترونية</div>
+          <div style="font-family:var(--ff-ui);font-size:0.5rem;color:var(--grey);margin-top:4px;" data-en="Scan at entrance for instant access" data-ar="امسح عند المدخل للدخول الفوري">امسح عند المدخل للدخول الفوري</div>
         </div>
       </div>
     </div>
@@ -1848,64 +962,96 @@
 <!-- ═══════════ EXPERIENCE ═══════════ -->
 <section id="experience">
   <div class="reveal" style="text-align:center;margin-bottom:0;position:relative;z-index:1;">
-    <div class="section-eyebrow" style="display:inline-block;" data-en="Features" data-ar="المميزات">Features</div>
-    <h2 class="section-title" style="margin-top:10px;" data-en="A <em>Different</em> Experience<br>From A to Z" data-ar="تجربة <em>مختلفة</em><br>من الألف إلى الياء">A <em>Different</em> Experience<br>From A to Z</h2>
+    <div class="section-eyebrow" style="display:inline-block;" data-en="Features" data-ar="المميزات">المميزات</div>
+    <h2 class="section-title" style="margin-top:10px;" data-en="A <em>Different</em> Experience<br>From A to Z" data-ar="تجربة <em>مختلفة</em><br>من الألف إلى الياء">تجربة <em>مختلفة</em><br>من الألف إلى الياء</h2>
   </div>
   <div class="exp-grid">
     <div class="exp-item reveal reveal-delay-1">
       <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-      <h3 data-en="Flexible Booking" data-ar="حجز مرن">Flexible Booking</h3>
-      <p data-en="Book your table for a day, week, or full month. The table is exclusively yours for the entire duration." data-ar="احجز طاولتك ليوم، أسبوع، أو شهر كامل. الطاولة ملكك حصريًا طوال المدة.">Book your table for a day, week, or full month. The table is exclusively yours for the entire duration.</p>
+      <h3 data-en="Flexible Booking" data-ar="حجز مرن">حجز مرن</h3>
+      <p data-en="Book your table for a day, week, or full month. The table is exclusively yours for the entire duration." data-ar="احجز طاولتك ليوم، أسبوع، أو شهر كامل. الطاولة ملكك حصريًا طوال المدة.">احجز طاولتك ليوم، أسبوع، أو شهر كامل. الطاولة ملكك حصريًا طوال المدة.</p>
     </div>
     <div class="exp-item reveal reveal-delay-2">
       <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-      <h3 data-en="E-Ticket" data-ar="تذكرة إلكترونية">E-Ticket</h3>
-      <p data-en="After confirmation, receive your official E-Ticket with QR Code for instant verification at entry." data-ar="بعد التأكيد، استلم تذكرتك الإلكترونية الرسمية مع رمز QR للتحقق الفوري عند الدخول.">After confirmation, receive your official E-Ticket with QR Code for instant verification at entry.</p>
+      <h3 data-en="E-Ticket" data-ar="تذكرة إلكترونية">تذكرة إلكترونية</h3>
+      <p data-en="After confirmation, receive your official E-Ticket with QR Code for instant verification at entry." data-ar="بعد التأكيد، استلم تذكرتك الإلكترونية الرسمية مع رمز QR للتحقق الفوري عند الدخول.">بعد التأكيد، استلم تذكرتك الإلكترونية الرسمية مع رمز QR للتحقق الفوري عند الدخول.</p>
     </div>
     <div class="exp-item reveal reveal-delay-3">
       <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <h3 data-en="Direct WhatsApp" data-ar="واتساب مباشر">Direct WhatsApp</h3>
-      <p data-en="Communicate directly with the venue via WhatsApp, pay the deposit, and confirm your booking easily." data-ar="تواصل مباشرة مع المكان عبر واتساب، ادفع الإيداع، وأكد حجزك بسهولة.">Communicate directly with the venue via WhatsApp, pay the deposit, and confirm your booking easily.</p>
+      <h3 data-en="Direct WhatsApp" data-ar="واتساب مباشر">واتساب مباشر</h3>
+      <p data-en="Communicate directly with the venue via WhatsApp, pay the deposit, and confirm your booking easily." data-ar="تواصل مباشرة مع المكان عبر واتساب، ادفع الإيداع، وأكد حجزك بسهولة.">تواصل مباشرة مع المكان عبر واتساب، ادفع الإيداع، وأكد حجزك بسهولة.</p>
     </div>
     <div class="exp-item reveal reveal-delay-1">
       <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-      <h3 data-en="Review System" data-ar="نظام التقييم">Review System</h3>
-      <p data-en="After your experience, rate the venue and share your thoughts to help others choose." data-ar="بعد تجربتك، قيم المكان وشارك رأيك لمساعدة الآخرين في الاختيار.">After your experience, rate the venue and share your thoughts to help others choose.</p>
+      <h3 data-en="Review System" data-ar="نظام التقييم">نظام التقييم</h3>
+      <p data-en="After your experience, rate the venue and share your thoughts to help others choose." data-ar="بعد تجربتك، قيم المكان وشارك رأيك لمساعدة الآخرين في الاختيار.">بعد تجربتك، قيم المكان وشارك رأيك لمساعدة الآخرين في الاختيار.</p>
     </div>
     <div class="exp-item reveal reveal-delay-2">
       <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-      <h3 data-en="Car Booking" data-ar="حجز سيارة">Car Booking</h3>
-      <p data-en="Browse available cars and send a booking request directly through the platform before your night out." data-ar="تصفح السيارات المتاحة وأرسل طلب حجز مباشر عبر المنصة قبل خروجك ليلاً.">Browse available cars and send a booking request directly through the platform before your night out.</p>
+      <h3 data-en="Car Booking" data-ar="حجز سيارة">حجز سيارة</h3>
+      <p data-en="Browse available cars and send a booking request directly through the platform before your night out." data-ar="تصفح السيارات المتاحة وأرسل طلب حجز مباشر عبر المنصة قبل خروجك ليلاً.">تصفح السيارات المتاحة وأرسل طلب حجز مباشر عبر المنصة قبل خروجك ليلاً.</p>
     </div>
     <div class="exp-item reveal reveal-delay-3">
       <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <h3 data-en="Security &amp; Privacy" data-ar="الأمان والخصوصية">Security &amp; Privacy</h3>
-      <p data-en="Your data and bookings are fully secure. Each venue is completely isolated from the others." data-ar="بياناتك وحجوزاتك آمنة بالكامل. كل مكان معزول تمامًا عن الآخرين.">Your data and bookings are fully secure. Each venue is completely isolated from the others.</p>
+      <h3 data-en="Security &amp; Privacy" data-ar="الأمان والخصوصية">الأمان والخصوصية</h3>
+      <p data-en="Your data and bookings are fully secure. Each venue is completely isolated from the others." data-ar="بياناتك وحجوزاتك آمنة بالكامل. كل مكان معزول تمامًا عن الآخرين.">بياناتك وحجوزاتك آمنة بالكامل. كل مكان معزول تمامًا عن الآخرين.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<!-- ═══════════ REVIEWS + FORM ═══════════ -->
 <section id="vibe">
-  <div class="reveal">
-    <div class="section-eyebrow" style="display:inline-block;" data-en="Reviews" data-ar="التقييمات">Reviews</div>
-    <p class="vibe-quote" style="margin-top:20px;" data-en="The night here is different — not just a place, but an experience that stays with you" data-ar="الليل هنا مختلف — ليس مجرد مكان، بل تجربة تبقى معك">The night here is different — not just a place, but an experience that stays with you</p>
+  <div class="reveal" style="text-align:center;">
+    <div class="section-eyebrow" style="display:inline-block;" data-en="Reviews" data-ar="التقييمات">التقييمات</div>
+    <p class="vibe-quote" style="margin-top:20px;" data-en="The night here is different — not just a place, but an experience that stays with you" data-ar="الليل هنا مختلف — ليس مجرد مكان، بل تجربة تبقى معك">الليل هنا مختلف — ليس مجرد مكان، بل تجربة تبقى معك</p>
   </div>
-  <div class="vibe-cards">
-    <div class="vibe-card reveal-rotate reveal-delay-1">
-      <div class="vibe-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-      <p class="vibe-text" data-en="Cosmo Lounge is refined and classy. The service is excellent and the atmosphere is world-class." data-ar="كوزمو لاونج راقي وأنيق. الخدمة ممتازة والأجواء عالمية المستوى.">Cosmo Lounge is refined and classy. The service is excellent and the atmosphere is world-class.</p>
-      <div class="vibe-author">Ahmed K.<span data-en="Cosmo Lounge &amp; Club" data-ar="كوزمو لاونج ونادي">Cosmo Lounge &amp; Club</span></div>
+
+  <div class="vibe-grid">
+    <!-- القائمة اليمنى: التقييمات الموجودة -->
+    <div class="vibe-cards">
+      <div class="vibe-card reveal-rotate reveal-delay-1">
+        <div class="vibe-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <p class="vibe-text" data-en="Cosmo Lounge is refined and classy. The service is excellent and the atmosphere is world-class." data-ar="كوزمو لاونج راقي وأنيق. الخدمة ممتازة والأجواء عالمية المستوى.">كوزمو لاونج راقي وأنيق. الخدمة ممتازة والأجواء عالمية المستوى.</p>
+        <div class="vibe-author">أحمد ك.<span data-en="Cosmo Lounge &amp; Club" data-ar="كوزمو لاونج ونادي">كوزمو لاونج ونادي</span></div>
+      </div>
+      <div class="vibe-card reveal-rotate reveal-delay-2">
+        <div class="vibe-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <p class="vibe-text" data-en="OVID CLUB has a completely different vibe. The energy and music are world-class. The QR code ticket made entry effortless." data-ar="أوفيد كلوب لديه أجواء مختلفة تمامًا. الطاقة والموسيقى عالمية المستوى. جعلت التذكرة برمز QR الدخول سلسًا.">أوفيد كلوب لديه أجواء مختلفة تمامًا. الطاقة والموسيقى عالمية المستوى. جعلت التذكرة برمز QR الدخول سلسًا.</p>
+        <div class="vibe-author">سارة م.<span data-en="OVID CLUB" data-ar="أوفيد كلوب">أوفيد كلوب</span></div>
+      </div>
+      <div class="vibe-card reveal-rotate reveal-delay-3">
+        <div class="vibe-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <p class="vibe-text" data-en="ECHO Privé is a completely different experience. Total privacy and top-notch service. Booked for a full week and never regretted it." data-ar="إيكو بريفيه تجربة مختلفة تمامًا. خصوصية تامة وخدمة من الدرجة الأولى. حجزت لمدة أسبوع كامل ولم أندم أبدًا.">إيكو بريفيه تجربة مختلفة تمامًا. خصوصية تامة وخدمة من الدرجة الأولى. حجزت لمدة أسبوع كامل ولم أندم أبدًا.</p>
+        <div class="vibe-author">عمر ت.<span data-en="ECHO Privé" data-ar="إيكو بريفيه">إيكو بريفيه</span></div>
+      </div>
     </div>
-    <div class="vibe-card reveal-rotate reveal-delay-2">
-      <div class="vibe-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-      <p class="vibe-text" data-en="OVID CLUB has a completely different vibe. The energy and music are world-class. The QR code ticket made entry effortless." data-ar="أوفيد كلوب لديه أجواء مختلفة تمامًا. الطاقة والموسيقى عالمية المستوى. جعلت التذكرة برمز QR الدخول سلسًا.">OVID CLUB has a completely different vibe. The energy and music are world-class. The QR code ticket made entry effortless.</p>
-      <div class="vibe-author">Sara M.<span data-en="OVID CLUB" data-ar="أوفيد كلوب">OVID CLUB</span></div>
-    </div>
-    <div class="vibe-card reveal-rotate reveal-delay-3">
-      <div class="vibe-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-      <p class="vibe-text" data-en="ECHO Privé is a completely different experience. Total privacy and top-notch service. Booked for a full week and never regretted it." data-ar="إيكو بريفيه تجربة مختلفة تمامًا. خصوصية تامة وخدمة من الدرجة الأولى. حجزت لمدة أسبوع كامل ولم أندم أبدًا.">ECHO Privé is a completely different experience. Total privacy and top-notch service. Booked for a full week and never regretted it.</p>
-      <div class="vibe-author">Omar T.<span data-en="ECHO Privé" data-ar="إيكو بريفيه">ECHO Privé</span></div>
+
+    <!-- الجانب الأيسر: فورم التقييم -->
+    <div class="review-form-wrapper reveal-scale reveal-delay-2">
+      <h3 data-en="Share Your Experience" data-ar="شارك تجربتك">شارك تجربتك</h3>
+      <p class="subtitle" data-en="Rate the venue and tell us about your night. Your feedback helps others choose." data-ar="قيم المكان وأخبرنا عن ليلتك. ملاحظاتك تساعد الآخرين في الاختيار.">قيم المكان وأخبرنا عن ليلتك. ملاحظاتك تساعد الآخرين في الاختيار.</p>
+      
+      <form class="review-form" id="reviewForm" onsubmit="submitReview(event)">
+        <div class="star-rating" id="starRating" dir="ltr">
+          <button type="button" data-value="1" onclick="setRating(1)">★</button>
+          <button type="button" data-value="2" onclick="setRating(2)">★</button>
+          <button type="button" data-value="3" onclick="setRating(3)">★</button>
+          <button type="button" data-value="4" onclick="setRating(4)">★</button>
+          <button type="button" data-value="5" onclick="setRating(5)">★</button>
+        </div>
+        <input type="hidden" id="ratingValue" value="0" />
+        
+        <input type="text" id="reviewName" placeholder="اسمك" required />
+        <select id="reviewVenue" required>
+          <option value="">اختر المكان</option>
+          <option value="كوزمو لاونج ونادي">كوزمو لاونج ونادي</option>
+          <option value="أوفيد كلوب">أوفيد كلوب</option>
+          <option value="إيكو بريفيه">إيكو بريفيه</option>
+        </select>
+        <textarea id="reviewComment" placeholder="اكتب تجربتك هنا..." required></textarea>
+        <button type="submit" class="submit-btn" data-en="Submit Review" data-ar="أرسل التقييم">أرسل التقييم</button>
+        <div class="form-success" id="formSuccess">✅ شكراً لتقييمك! تم استلام ملاحظاتك.</div>
+      </form>
     </div>
   </div>
 </section>
@@ -1913,12 +1059,12 @@
 <!-- ═══════════ CTA ═══════════ -->
 <section id="cta">
   <div class="reveal-scale">
-    <div class="section-eyebrow" style="display:inline-block;" data-en="Start Now" data-ar="ابدأ الآن">Start Now</div>
-    <h2 class="section-title" style="margin-top:10px;" data-en="Your Night Starts<br>From <em>Here</em>" data-ar="ليلتك تبدأ<br>من <em>هنا</em>">Your Night Starts<br>From <em>Here</em></h2>
-    <p data-en="Don't wait — the best tables get booked fast. Choose your venue and book your night now." data-ar="لا تنتظر — أفضل الطاولات يتم حجزها بسرعة. اختر مكانك واحجز ليلتك الآن.">Don't wait — the best tables get booked fast. Choose your venue and book your night now.</p>
+    <div class="section-eyebrow" style="display:inline-block;" data-en="Start Now" data-ar="ابدأ الآن">ابدأ الآن</div>
+    <h2 class="section-title" style="margin-top:10px;" data-en="Your Night Starts<br>From <em>Here</em>" data-ar="ليلتك تبدأ<br>من <em>هنا</em>">ليلتك تبدأ<br>من <em>هنا</em></h2>
+    <p data-en="Don't wait — the best tables get booked fast. Choose your venue and book your night now." data-ar="لا تنتظر — أفضل الطاولات يتم حجزها بسرعة. اختر مكانك واحجز ليلتك الآن.">لا تنتظر — أفضل الطاولات يتم حجزها بسرعة. اختر مكانك واحجز ليلتك الآن.</p>
     <div class="cta-btns">
-      <a href="#venues" class="btn-primary" data-en="Explore" data-ar="استكشف">Explore <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="#how" class="btn-ghost" data-en="How It Works" data-ar="طريقة العمل">How It Works</a>
+      <a href="#venues" class="btn-primary" data-en="Explore" data-ar="استكشف">استكشف <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#how" class="btn-ghost" data-en="How It Works" data-ar="طريقة العمل">طريقة العمل</a>
     </div>
   </div>
 </section>
@@ -1931,14 +1077,14 @@
         <img src="img/7f5b4615-e644-46d6-a93b-3c5192e1a5cf.jfif" alt="ORCA" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:1px solid rgba(212,175,55,0.4);box-shadow:0 0 20px rgba(212,175,55,0.15);">
         <span class="orca-logo-text">ORC<span>A</span></span>
       </a>
-      <p data-en="The leading booking platform for Night Clubs. We bring together the finest venues for an unforgettable night experience." data-ar="منصة الحجز الرائدة للنوادي الليلية. نجمع أفضل الأماكن لتجربة ليلة لا تُنسى.">The leading booking platform for Night Clubs. We bring together the finest venues for an unforgettable night experience.</p>
+      <p data-en="The leading booking platform for Night Clubs. We bring together the finest venues for an unforgettable night experience." data-ar="منصة الحجز الرائدة للنوادي الليلية. نجمع أفضل الأماكن لتجربة ليلة لا تُنسى.">منصة الحجز الرائدة للنوادي الليلية. نجمع أفضل الأماكن لتجربة ليلة لا تُنسى.</p>
     </div>
-    <div class="footer-col"><h4 data-en="Venues" data-ar="الأماكن">Venues</h4><ul class="footer-links"><li><a href="#" data-en="Cosmo Lounge &amp; Club" data-ar="كوزمو لاونج ونادي">Cosmo Lounge &amp; Club</a></li><li><a href="#" data-en="OVID CLUB" data-ar="أوفيد كلوب">OVID CLUB</a></li><li><a href="#" data-en="ECHO Privé" data-ar="إيكو بريفيه">ECHO Privé</a></li></ul></div>
-    <div class="footer-col"><h4 data-en="Platform" data-ar="المنصة">Platform</h4><ul class="footer-links"><li><a href="#" data-en="How It Works" data-ar="طريقة العمل">How It Works</a></li><li><a href="#" data-en="Table Booking" data-ar="حجز طاولة">Table Booking</a></li><li><a href="#" data-en="Car Booking" data-ar="حجز سيارة">Car Booking</a></li><li><a href="#" data-en="Reviews" data-ar="التقييمات">Reviews</a></li></ul></div>
-    <div class="footer-col"><h4 data-en="For Venues" data-ar="للأماكن">For Venues</h4><ul class="footer-links"><li><a href="#" data-en="Join ORCA" data-ar="انضم إلى ORCA">Join ORCA</a></li><li><a href="#" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li><li><a href="#" data-en="Subscriptions" data-ar="الاشتراكات">Subscriptions</a></li><li><a href="#" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="Venues" data-ar="الأماكن">الأماكن</h4><ul class="footer-links"><li><a href="#" data-en="Cosmo Lounge &amp; Club" data-ar="كوزمو لاونج ونادي">كوزمو لاونج ونادي</a></li><li><a href="#" data-en="OVID CLUB" data-ar="أوفيد كلوب">أوفيد كلوب</a></li><li><a href="#" data-en="ECHO Privé" data-ar="إيكو بريفيه">إيكو بريفيه</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="Platform" data-ar="المنصة">المنصة</h4><ul class="footer-links"><li><a href="#" data-en="How It Works" data-ar="طريقة العمل">طريقة العمل</a></li><li><a href="#" data-en="Table Booking" data-ar="حجز طاولة">حجز طاولة</a></li><li><a href="#" data-en="Car Booking" data-ar="حجز سيارة">حجز سيارة</a></li><li><a href="#" data-en="Reviews" data-ar="التقييمات">التقييمات</a></li></ul></div>
+    <div class="footer-col"><h4 data-en="For Venues" data-ar="للأماكن">للأماكن</h4><ul class="footer-links"><li><a href="#" data-en="Join ORCA" data-ar="انضم إلى ORCA">انضم إلى ORCA</a></li><li><a href="#" data-en="Dashboard" data-ar="لوحة التحكم">لوحة التحكم</a></li><li><a href="#" data-en="Subscriptions" data-ar="الاشتراكات">الاشتراكات</a></li><li><a href="#" data-en="Contact Us" data-ar="اتصل بنا">اتصل بنا</a></li></ul></div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2024 <span>ORCA</span>. All rights reserved.</p>
+    <p class="footer-copy">© 2024 <span>ORCA</span>. جميع الحقوق محفوظة.</p>
     <div class="footer-social">
       <button class="social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></button>
       <button class="social-btn" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></button>
@@ -1961,10 +1107,10 @@
   const progress = document.getElementById('slide-progress');
   let current = 0, timer = null;
   const slideTexts = [
-    { eyebrow: '— Where the Night Begins', title: 'Experience<br>the <em>Deep</em><br>Night', sub: 'One platform. Three extraordinary venues. Book your table and live a night to remember.' },
-    { eyebrow: '— Feel the Pulse', title: 'Let the<br><em>Music</em><br>Move You', sub: 'OVID CLUB — Non-stop energy, music that cuts through, a night without end.' },
-    { eyebrow: '— Coastal Elegance', title: 'Where <em>Ocean</em><br>Meets<br>Night', sub: 'Cosmo Lounge — Refined elegance and calm in one place.' },
-    { eyebrow: '— Exclusive Access', title: 'The <em>Private</em><br>World<br>Awaits', sub: 'ECHO Privé — Exclusive, private, for the elite. Where luxury meets privacy.' }
+    { eyebrow: '— حيث يبدأ الليل', title: 'اختبر<br><em>الليل</em><br>العميق', sub: 'منصة واحدة. ثلاث أماكن استثنائية. احجز طاولتك وعش ليلة لا تُنسى.' },
+    { eyebrow: '— اشعر بالنبض', title: 'دع <em>الموسيقى</em><br>تحركك', sub: 'أوفيد كلوب — طاقة لا تتوقف، موسيقى تخترق القلب، ليلة بلا نهاية.' },
+    { eyebrow: '— أناقة ساحلية', title: 'حيث يلتقي <em>المحيط</em><br>بالليل', sub: 'كوزمو لاونج — أناقة راقية وهدوء في مكان واحد.' },
+    { eyebrow: '— دخول حصري', title: 'العالم <em>الخاص</em><br>ينتظرك', sub: 'إيكو بريفيه — حصري، خاص، للنخبة. حيث يلتقي الفخامة بالخصوصية.' }
   ];
   function goToSlide(n) {
     slides[current].classList.remove('active'); slides[current].classList.add('prev');
@@ -1975,7 +1121,7 @@
     counter.textContent = (current + 1).toString().padStart(2, '0');
     document.querySelector('.hero-eyebrow').textContent = slideTexts[current].eyebrow;
     document.querySelector('.hero-title').innerHTML = slideTexts[current].title;
-    document.querySelector('.hero-subtitle').textContent = slideTexts[current].sub.replace(/<[^>]+>/g, '');
+    document.querySelector('.hero-subtitle').textContent = slideTexts[current].sub;
     progress.style.animation = 'none'; progress.offsetHeight;
     progress.style.animation = 'progressBar 8s linear infinite';
     resetTimer();
@@ -2068,24 +1214,71 @@
     document.querySelectorAll('.how-detail-content').forEach((c, i) => c.classList.toggle('active', i === index));
   }
 
+  // ─── STAR RATING ────────────────────────────────────
+  let selectedRating = 0;
+  function setRating(val) {
+    selectedRating = val;
+    document.getElementById('ratingValue').value = val;
+    const btns = document.querySelectorAll('.star-rating button');
+    btns.forEach((b, i) => {
+      b.classList.toggle('active', i < val);
+    });
+  }
+
+  // ─── REVIEW FORM SUBMIT ────────────────────────────
+  function submitReview(e) {
+    e.preventDefault();
+    const name = document.getElementById('reviewName').value.trim();
+    const venue = document.getElementById('reviewVenue').value;
+    const comment = document.getElementById('reviewComment').value.trim();
+    const rating = parseInt(document.getElementById('ratingValue').value);
+
+    if (!name || !venue || !comment || rating === 0) {
+      alert('يرجى ملء جميع الحقول واختيار عدد النجوم.');
+      return;
+    }
+
+    // عرض رسالة نجاح
+    const success = document.getElementById('formSuccess');
+    success.classList.add('show');
+    success.textContent = `✅ شكراً ${name}! تم استلام تقييمك لـ ${venue} (${rating} ★).`;
+
+    // إعادة تعيين الفورم
+    document.getElementById('reviewForm').reset();
+    setRating(0);
+    document.getElementById('ratingValue').value = 0;
+
+    // إخفاء الرسالة بعد 5 ثواني
+    setTimeout(() => {
+      success.classList.remove('show');
+    }, 5000);
+  }
+
   // ─── TRANSLATION TOGGLE ─────────────────────────────
-  let isArabic = false;
+  let isArabic = true; // اللغة الافتراضية عربية
 
   function toggleTranslation() {
     isArabic = !isArabic;
     const langLabel = document.getElementById('langLabel');
     langLabel.textContent = isArabic ? 'عربي' : 'English';
     
-    // ترجمة جميع العناصر التي تحتوي على data-en و data-ar
     document.querySelectorAll('[data-en][data-ar]').forEach(el => {
       if (isArabic) {
-        el.textContent = el.getAttribute('data-ar');
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+          el.setAttribute('placeholder', el.getAttribute('data-ar'));
+        } else {
+          el.textContent = el.getAttribute('data-ar');
+        }
       } else {
-        el.textContent = el.getAttribute('data-en');
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+          el.setAttribute('placeholder', el.getAttribute('data-en'));
+        } else {
+          el.textContent = el.getAttribute('data-en');
+        }
       }
     });
 
-    // ترجمة العناصر التي تحتوي على innerHTML (مثل hero-title و section-title)
+    // العناصر التي تحتوي على HTML (مثل hero-title)
     document.querySelectorAll('[data-en][data-ar]').forEach(el => {
       if (el.innerHTML.includes('<br>') || el.innerHTML.includes('<em>')) {
         if (isArabic) {
@@ -2096,11 +1289,9 @@
       }
     });
 
-    // تحديث اتجاه النص للعربية
     document.body.style.direction = isArabic ? 'rtl' : 'ltr';
     document.body.style.textAlign = isArabic ? 'right' : 'left';
     
-    // تحديث hero-title بشكل خاص
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
       if (isArabic) {
